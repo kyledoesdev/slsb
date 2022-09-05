@@ -73,7 +73,11 @@
                         <h2 class="mt-2 mb-1">Featured Post &#128204;</h2>
                     </div>
                     <div class="card-body border border-3 border-warning mt-2 rounded">
-                        @include('includes.markdown_content')
+                        @if ($featuredPost)
+                            @include('includes.markdown_content')
+                        @else
+                            <span>No featured post to display.</span>
+                        @endif
                     </div>
                 </div>
             </div>

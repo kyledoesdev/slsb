@@ -12,15 +12,15 @@ class UserProfileController extends Controller {
 
     public function index($id) {
         $user = User::where('username', $id)->first();
-        $post = Post::where('user_id', $user->id)
+        $featuredPost = Post::where('user_id', $user->id)
             ->where('is_featured', true)
             ->first();
-
+        
         abort_if($user == null, 404);
 
         return view('profiles.index', [
             'user' => $user,
-            'post' => $post
+            'featuredPost' => $featuredPost
         ]);
     }
 
