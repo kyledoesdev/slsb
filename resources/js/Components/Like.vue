@@ -3,12 +3,14 @@
     <section class="section">
          <div v-if="this.status">
             <button @click="likePost" class="btn btn-secondary rounded-pill shadow-none mb-0" style="border-radius: 0em;">
-                UnLike</button>
+                <i class="fa-solid fa-thumbs-up"></i>
+            </button>
             <span v-text="countText"></span>
         </div>
         <div v-else>
             <button @click="likePost" class="btn btn-primary rounded-pill shadow-none mb-0" style="border-radius: 0em;">
-                Like</button>
+                <i class="fa-regular fa-thumbs-up"></i>
+            </button>
             <span v-text="countText"></span>
         </div>
     </section>
@@ -17,7 +19,7 @@
 
 <script>
 
-    import { EventBus } from '../app.js';
+    import { EventBus } from '../vue-booter.js';
 
     export default {
 

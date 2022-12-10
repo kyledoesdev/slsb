@@ -7,6 +7,8 @@ use App\Models\User;
 use GuzzleHttp\Client;
 use Log;
 
+use App\Libraries\Twitch\Helpers;
+
 class FollowController extends Controller {
 
     public function follow($id) {
@@ -53,7 +55,7 @@ class FollowController extends Controller {
     }
 
     public function followingList($id) {
-        dd('following list');
+        dd('in following list');
     }
 
 }

@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="mb-2">
+    <div class="col-md-8 mb-2">
       <label class="form-label">Location</label>
       <input class="form-control" type="text" name="location" placeholder="Earth, Milkyway"></input>
     </div>

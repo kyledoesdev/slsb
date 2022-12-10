@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-
-@section('scripts')
-    <script type="text/javascript" src="{{ asset('js/dashboard/common.js') }}" defer></script>
-@endsection
-
-
 @section('content')
 @include('includes.messages')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @inject('userType', 'App\Models\UserType')
             @if (in_array(auth()->user()->userType->id, array($userType::SUPER_ADMIN , $userType::ADMIN)))
                 <div class="card">
@@ -31,7 +25,7 @@
                             <!-- Passing this value here to make validation easier on the backend -->
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}"/>
                             <!-- This is the markdown editor partial -->
-                            @include('includes.markdown_editor')
+                            @include('includes.markdown_editor', ['action' => 'Submit'])
                         </form>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ class CreatePostsTable extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->text('body'); //this is required to be a text field so we can store > 256 chars
+            $table->longtext('body'); //this is required to be a text field so we can store > 256 chars
             $table->unsignedBigInteger('total_like_count')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -1,0 +1,1 @@
+<div class="tab-pane container fade" id="tab_3">PC Specs</div>

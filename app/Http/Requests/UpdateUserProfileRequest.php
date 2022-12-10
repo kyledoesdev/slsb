@@ -23,7 +23,7 @@ class UpdateUserProfileRequest extends FormRequest {
     public function rules()
     {
         //If not a twitch user
-        if (auth()->user()->external_id == null) {
+        if (!auth()->user()->isTwitchUser()) {
             return [
                 'first_name' => 'nullable|string|max:32',
                 'last_name' => 'nullable|string|max:32',

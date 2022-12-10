@@ -11,7 +11,7 @@ class DisconnectFromTwitchRequest extends FormRequest {
      * @return bool
      */
     public function authorize() {
-        return auth()->user()->external_id != null;
+        return auth()->user()->isTwitchUser();
     }
 
     /**

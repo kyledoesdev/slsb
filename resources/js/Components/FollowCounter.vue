@@ -1,17 +1,31 @@
 <template>
 
     <section class="section">
-        <div>
-            <span><a :href="this.userFollowersList">Followers</a>: <span class="fw-bold" v-text="followersText"></span></span>
-            <span><a :href="this.userFollowingList">Following</a>: <span class="fw-bold" v-text="followingText"></span></span>
-        </div>
+        <span>
+            <a 
+                :href="this.userFollowersList" 
+                class="btn btn-primary btn-sm border border-2 border-dark" 
+                style="text-decoration: none;">
+                Followers: 
+                    <span class="fw-bold" v-text="followersText"></span>
+            </a>
+        </span>
+        <span>
+            <a 
+                :href="this.userFollowingList" 
+                class="btn btn-secondary btn-sm border border-2 border-dark" 
+                style="text-decoration: none;">
+                Following: 
+                    <span class="fw-bold" v-text="followingText"></span>
+            </a>
+        </span>
     </section>
 
 </template>
 
 <script>
 
-    import { EventBus } from '../app.js';
+    import { EventBus } from '../vue-booter.js';
 
     export default {
 

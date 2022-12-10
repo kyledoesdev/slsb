@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
             $url->formatScheme('https');
         }
 
-        //Builder::defaultStringLength(191);
         Paginator::useBootstrap();
     }
 }

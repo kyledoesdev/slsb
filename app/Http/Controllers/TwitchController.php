@@ -24,7 +24,8 @@ class TwitchController extends Controller {
         $twitchUser = Socialite::driver('twitch')->stateless()->user();
 
         //try to find a user with email from socialite user exists but they are not a twitch user
-        $userExists = User::where('email', $twitchUser->email)
+        $userExists = User::query()
+            ->where('email', $twitchUser->email)
             ->where('external_id', null);
 
 
@@ -34,7 +35,8 @@ class TwitchController extends Controller {
             return self::connectAccountWithTwitch($twitchUser, $user);
         }
 
-        $usernameExists = User::where('username', '!=', null)
+        $usernameExists = User::query()
+            ->where('username', '!=', null)
             ->where('external_id', $twitchUser->id);
 
         $user = User::updateOrCreate([
@@ -74,7 +76,7 @@ class TwitchController extends Controller {
          */
         $connected_at = Carbon::parse($existingUser->connected_timestamp);
         if ($connected_at->diffInDays(now()) < 0) {
-            return redirect()->route('profile', ['id' => $existingUser->username])
+            return redirect()->route('profile.show', ['id' => $existingUser->username])
                 ->withErrors(['error' => 'You must wait 24 hours']);
         }
 
@@ -82,7 +84,7 @@ class TwitchController extends Controller {
          * If user's original email does not match the email the user wants to connect their account to
          */
         if ($twitchUser->email !== $existingUser->email) {
-            return redirect()->route('profile', ['id' => $existingUser->username])
+            return redirect()->route('profile.show', ['id' => $existingUser->username])
                 ->withErrors(['error' => 'Could not connect your account with your twitch account. An account with the email that your twitch account is using already exists.']);
         }
 
@@ -91,7 +93,7 @@ class TwitchController extends Controller {
          */
         $usernameExists = User::where('username', $twitchUser->name);
         if ($usernameExists->exists() && $usernameExists->first()->username != $existingUser->username) {
-            return redirect()->route('profile', ['id' => auth()->user()->username])
+            return redirect()->route('profile.show', ['id' => auth()->user()->username])
                 ->withErrors(['error' => 'Another user already has claimed the username of your twitch account. Contact us to get this resolved.']);
         }
 
@@ -140,7 +142,7 @@ class TwitchController extends Controller {
             ]);
         }
 
-        return redirect()->route('profile', ['id' => auth()->user()->username])
+        return redirect()->route('profile.show', ['id' => auth()->user()->username])
             ->with('success', 'You have disconnected from twitch.');
     }
 

@@ -33,7 +33,7 @@ return [
     'twitch' => [
         'client_id' => env('TWITCH_CLIENT_ID'),
         'client_secret' => env('TWITCH_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/login/twitch/callback'
+        'redirect' => env('TWITCH_REDIRECT_URI')
     ],
 
 ];

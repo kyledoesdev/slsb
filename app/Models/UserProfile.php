@@ -12,10 +12,17 @@ class UserProfile extends Model {
     public $table = 'user_profiles';
 
     protected $fillable = [
-       'user_id', 'avatar', 'bio', 'location'
+       'user_id', 
+       'avatar', 
+       'bio', 
+       'location'
     ];
 
     public function user() {
         return $this->belongsTo(User::class, 'id', 'profile_id');
     }
+
+    public function getId() {
+        return $this->id;
+    } 
 }

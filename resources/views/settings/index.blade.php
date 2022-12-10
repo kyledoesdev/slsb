@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @if (auth()->user()->external_id == null)
+        @if (!auth()->user()->isTwitchUser())
             <a class="btn btn-info" href="/login/twitch">Connect to Twitch</a>
             <br>
         @else

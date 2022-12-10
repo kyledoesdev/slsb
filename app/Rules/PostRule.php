@@ -5,21 +5,17 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\Post;
 
-class PostRule implements Rule
-{
+class PostRule implements Rule {
+
     public $post;
 
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    public function __construct() {
+        
         /**
          * Returns a builder of if a post is featured or not.
          */
-        $this->post = Post::where('user_id', auth()->id())
+        $this->post = Post::query()
+            ->where('user_id', auth()->id())
             ->where('is_featured', true);
     }
 
@@ -30,8 +26,8 @@ class PostRule implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
-    {
+    public function passes($attribute, $value) {
+
         /**
          * If the post is featured and the checkbox is checked, update the old post to not be featured.
          */
@@ -50,8 +46,7 @@ class PostRule implements Rule
      *
      * @return string
      */
-    public function message()
-    {
+    public function message() {
         return 'The validation error message.';
     }
 }

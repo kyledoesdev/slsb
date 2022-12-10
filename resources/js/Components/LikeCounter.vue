@@ -10,7 +10,7 @@
 
 <script>
 
-    import { EventBus } from '../app.js';
+    import { EventBus } from '../vue-booter.js';
 
     export default {
 

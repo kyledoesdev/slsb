@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row d-flex justify-content-center mb-2">
         @if (auth()->user() == $post->user)
-            <div class="col-md-8 mb-2">
+            <div class="col-md-8 bg-light mb-2">
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('post.edit', $post->id) }}" class="btn btn-success mx-1">Edit Post</a>
                     <form action="{{ route('post.destroy', $post->id) }}" method="POST">

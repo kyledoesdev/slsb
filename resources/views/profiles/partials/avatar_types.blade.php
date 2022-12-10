@@ -1,4 +1,4 @@
-<select class="form-control" name="avatar-type">
+<select class="form-control" name="avatar_type">
     <option value="">Select Avatar Type</option>
     <option value="adventurer">adeventurer</option>
     <option value="adventurer-neutral">adventurer-neutral</option>
