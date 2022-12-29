@@ -10,9 +10,10 @@ class CreateFavoriteGamesTable extends Migration {
         Schema::create('user_profile_favorite_games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id');
+            $table->string('game_id');
             $table->string('game_title');
             $table->string('box_art_url');
-            $table->string('game_url');
+            $table->string('formatted_box_art_url');
             $table->timestamps();
             $table->softDeletes();
         });

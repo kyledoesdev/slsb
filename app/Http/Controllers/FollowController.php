@@ -50,6 +50,7 @@ class FollowController extends Controller {
         );
 
         $temp = json_decode($response->getBody());
+        dd($temp);
         $box_art_id = $temp->data[0]->id;
         return view('test', ['box_art_id' => $box_art_id]);
     }

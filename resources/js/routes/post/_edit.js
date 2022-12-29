@@ -3,7 +3,7 @@ window.spacelampsix.post.edit = window.spacelampsix.post.edit || {};
 
 window.spacelampsix.post.edit = {
 
-    init: function () {
+    boot: function () {
         let body = $('#post-body').val();
         editor.setMarkdown(body);
 

@@ -1,4 +1,4 @@
-<div class="tab-pane container active" id="tab_1">
+<div class="tab-pane container fade show active" id="tab_1">
     <div class="parent-post-container mt-4">
         @foreach ($posts as $post)
             <div class="col-auto mb-4">

@@ -31,10 +31,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     
     Route::middleware('posts')->group(function() {
-        Route::get('post/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
-        Route::post('post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
-        Route::post('post/{id}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
-        Route::post('post/{id}/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
+        Route::get('/post/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
+        Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+        Route::post('/post/{id}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+        Route::post('/post/{id}/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
     });
 
     /**
@@ -56,13 +56,15 @@ Route::middleware(['auth'])->group(function() {
     Route::middleware(['user_profile'])->group(function() {
         Route::get('/{id}/edit', [App\Http\Controllers\UserProfileController::class, 'edit'])->name('profile.edit');
         Route::post('/{id}/update', [App\Http\Controllers\UserProfileController::class, 'update'])->name('profile.update');
-        Route::get('{id}/settings', [App\Http\Controllers\UserAccountSettingsController::class, 'index'])->name('user.settings');
-        Route::post('{id}/settings/unlink_twitch', [App\Http\Controllers\TwitchController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
+        Route::get('/{id}/settings', [App\Http\Controllers\UserAccountSettingsController::class, 'index'])->name('user.settings');
+        Route::post('/{id}/settings/unlink_twitch', [App\Http\Controllers\TwitchController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
     
         /**
          * Favorite Game Tab
          */
-        Route::post('{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
-        Route::post('{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
+        Route::post('/{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
+        Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
     });
+
+    Route::get('/twitch/get-categories', [App\Http\Controllers\FavoriteGameController::class, 'searchForCategory']);
 });

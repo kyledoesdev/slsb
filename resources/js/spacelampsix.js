@@ -27,7 +27,7 @@ window.spacelampsix = {
     /**
      * Load the route specific JS
      */
-    loadRouteJS: function (functionName = 'init') {
+    loadRouteJS: function (functionName = 'boot') {
         var namespace = [];
         var find = '';
 

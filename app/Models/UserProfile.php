@@ -22,7 +22,15 @@ class UserProfile extends Model {
         return $this->belongsTo(User::class, 'id', 'profile_id');
     }
 
+    public function userProfileFavoriteGames() {
+        return $this->hasMany(UserProfileFavoriteGame::class, 'profile_id', 'id');
+    }
+
     public function getId() {
         return $this->id;
     } 
+
+    public function canHaveMoreFavoriteGames() : bool {
+        return $this->userProfileFavoriteGames->count() < 9;
+    }
 }
