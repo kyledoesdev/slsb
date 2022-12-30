@@ -7,7 +7,8 @@
 </template>
 
 <script>
-    import { EventBus } from '../vue-booter.js';
+
+    import { emitter } from "../vue-booter";
 
     export default {
 
@@ -29,8 +30,8 @@
                         this.status = !this.status;
                         this.followers = response.data.followersCount;
                         this.following = response.data.followingCount;
-                        EventBus.$emit('followers', this.followers);
-                        EventBus.$emit('following', this.following);
+                        this.emitter.emit('followers', this.followers);
+                        this.emitter.emit('following', this.following);
                     })
                     .catch(error => {
                         console.log(error);
@@ -42,18 +43,14 @@
                         this.status = !this.status;
                         this.followers = response.data.followersCount;
                         this.following = response.data.followingCount;
-                        EventBus.$emit('followers', this.followers);
-                        EventBus.$emit('following', this.following);
+                        this.emitter.emit('followers', this.followers);
+                        this.emitter.emit('following', this.following);
                     })
                     .catch(error => {
                         console.log(error);
                     });
                 }
             },
-
-        },
-
-        mounted() {
 
         },
 

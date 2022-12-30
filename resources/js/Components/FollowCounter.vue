@@ -25,8 +25,6 @@
 
 <script>
 
-    import { EventBus } from '../vue-booter.js';
-
     export default {
 
         props: ['followersCount', 'followingCount', 'followersList', 'followingList'],
@@ -41,11 +39,11 @@
         },
 
         created() {
-            EventBus.$on('followers', (data) => {
+            this.emitter.on('followers', (data) => {
                 this.followers = data;
             });
 
-            EventBus.$on('following', (data) => {
+            this.emitter.on('following', (data) => {
                 this.following = data;
             })
         },

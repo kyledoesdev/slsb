@@ -19,8 +19,6 @@
 
 <script>
 
-    import { EventBus } from '../vue-booter.js';
-
     export default {
 
         props: ['postId', 'likes', 'count'],
@@ -39,8 +37,8 @@
                     .then(response => {
                         this.status = !this.status;
                         this.likeCount = response.data.count;
-                        EventBus.$emit('like', this.likeCount);
-                        EventBus.$emit('totalLikes', response.data.totalCount);
+                        this.emitter.emit('like', this.likeCount);
+                        this.emitter.emit('totalLikes', response.data.totalCount);
                     })
                     .catch(error => {
                         console.log(error);
@@ -51,8 +49,8 @@
                     .then(response => {
                         this.status = !this.status;
                         this.likeCount = response.data.count;
-                        EventBus.$emit('like', this.likeCount);
-                        EventBus.$emit('totalLikes', response.data.totalCount);
+                        this.emitter.emit('like', this.likeCount);
+                        this.emitter.emit('totalLikes', response.data.totalCount);
                     })
                     .catch(error => {
                         console.log(error);

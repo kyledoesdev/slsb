@@ -9,9 +9,6 @@
 </template>
 
 <script>
-
-    import { EventBus } from '../vue-booter.js';
-
     export default {
 
         props: ['likeCount'],
@@ -23,7 +20,7 @@
         },
 
         created() {
-            EventBus.$on('totalLikes', (data) => {
+            this.emitter.emit('totalLikes', (data) => {
                 this.likes = data;
             });
 
