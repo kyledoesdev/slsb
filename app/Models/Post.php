@@ -20,6 +20,15 @@ class Post extends Model {
         'total_like_count'
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function($post) {
+            $userId = Auth::check() ? auth()->id() : null;
+            $post->user_id = $userId;
+        });
+    }
+
     /**
      * Queries
      */
@@ -60,6 +69,18 @@ class Post extends Model {
 
     public function getNumOfLikes() {
         return $this->total_like_count;
+    }
+
+    public function isFeatured() {
+        return $this->is_featured;
+    }
+
+    public function updatePost($updates) {
+        $this->update([
+            'title' => $updates['title'],
+            'body' => $updates['body'] === null ? '' : $updates['body'],
+            'is_featured' => $updates['is_featured'] !== null && $updates['is_featured'] === 'on' ? true : $this->isFeatured()
+        ]);
     }
 
 }

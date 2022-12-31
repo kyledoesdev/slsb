@@ -1,6 +1,8 @@
+import { editor } from "../toast-ui-editor";
+
 window.spacelampsix.dashboard = window.spacelampsix.dashboard || {};
 
-window.spacelampsix.dashboard= {
+window.spacelampsix.dashboard = {
     boot : function () {
         let checkbox = $('#featured_checkbox');
         checkbox.on('click', () => {

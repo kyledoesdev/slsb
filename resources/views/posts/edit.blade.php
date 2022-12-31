@@ -25,7 +25,10 @@
                         <!-- Passing this value here to make validation easier on the backend -->
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}"/>
                         <!-- This is the markdown editor partial -->
-                        @include('includes.markdown_editor', ['action' => 'Update'])
+                        @include('includes.markdown_editor', [
+                            'action' => 'Update',
+                            'post' => $post,
+                        ])
                     </form>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('includes.messages')
     <div class="container">
         <div class="row">
             <div class="col-lg-4 mb-2">
@@ -42,7 +41,7 @@
                                 <div class="row">
                                     <div class="col">
                                         @if(auth()->id() == $user->getId())
-                                            <a class="btn btn-sm btn-primary border border-2 border-dark"
+                                            <a class="btn btn-sm btn-primary border border-2 border-dark mx-1"
                                               href="{{ route('profile.edit', ['id' => $user->username]) }}">
                                               <i class="fa fa-pen"></i>
                                             </a>

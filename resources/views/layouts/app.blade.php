@@ -19,6 +19,7 @@
         <div id="app">
             @include('layouts.includes.nav')
             <main class="py-4">
+                @include('includes.messages')
                 @yield('content')
                 @yield('styles')
                 @yield('scripts')

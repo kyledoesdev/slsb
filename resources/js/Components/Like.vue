@@ -2,13 +2,13 @@
 
     <section class="section">
          <div v-if="this.status">
-            <button @click="likePost" class="btn btn-secondary rounded-pill shadow-none mb-0" style="border-radius: 0em;">
+            <button @click="likePost" class="btn btn-secondary rounded-pill shadow-none mb-0 mx-2" style="border-radius: 0em;">
                 <i class="fa-solid fa-thumbs-up"></i>
             </button>
             <span v-text="countText"></span>
         </div>
         <div v-else>
-            <button @click="likePost" class="btn btn-primary rounded-pill shadow-none mb-0" style="border-radius: 0em;">
+            <button @click="likePost" class="btn btn-primary rounded-pill shadow-none mb-0 mx-2" style="border-radius: 0em;">
                 <i class="fa-regular fa-thumbs-up"></i>
             </button>
             <span v-text="countText"></span>

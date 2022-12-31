@@ -4,9 +4,19 @@
     </div>
 
     <input type="hidden" name="body" id="content">
+    
+    @if ($post)
+        <input type="hidden" name="post_id" value="{{ $post->getId() }}">
+    @endif
 
     <div class="col d-flex justify-content-end form-check form-check-inline mt-3">
-        <input class="form-check-input mx-2" type="checkbox" id="featured_checkbox" name="is_featured">
+        <input 
+            class="form-check-input mx-2" 
+            type="checkbox" 
+            id="featured_checkbox" 
+            name="is_featured" 
+            @if ($post && $post->is_featured == true) checked @endif
+        />
         <label class="form-check-label" for="flexCheckDefault">
             Featured
         </label>

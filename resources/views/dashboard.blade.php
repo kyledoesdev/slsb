@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@include('includes.messages')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -25,7 +24,10 @@
                             <!-- Passing this value here to make validation easier on the backend -->
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}"/>
                             <!-- This is the markdown editor partial -->
-                            @include('includes.markdown_editor', ['action' => 'Submit'])
+                            @include('includes.markdown_editor', [
+                                'action' => 'Submit',
+                                'post' => null
+                            ])
                         </form>
                     </div>
                 </div>

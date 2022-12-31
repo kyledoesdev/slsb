@@ -66,5 +66,5 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
     });
 
-    Route::get('/twitch/get-categories', [App\Http\Controllers\FavoriteGameController::class, 'searchForCategory']);
+    Route::get('/twitch/categories', [App\Http\Controllers\FavoriteGameController::class, 'searchForCategory'])->name('favorite_game.search');
 });

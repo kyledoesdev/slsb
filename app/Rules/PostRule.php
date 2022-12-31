@@ -7,10 +7,9 @@ use App\Models\Post;
 
 class PostRule implements Rule {
 
-    public $post;
+    protected $post;
 
     public function __construct() {
-        
         /**
          * Returns a builder of if a post is featured or not.
          */

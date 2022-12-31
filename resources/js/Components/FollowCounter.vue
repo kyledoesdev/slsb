@@ -4,7 +4,7 @@
         <span>
             <a 
                 :href="this.userFollowersList" 
-                class="btn btn-primary btn-sm border border-2 border-dark" 
+                class="btn btn-primary btn-sm border border-2 border-dark mx-1" 
                 style="text-decoration: none;">
                 Followers: 
                     <span class="fw-bold" v-text="followersText"></span>
