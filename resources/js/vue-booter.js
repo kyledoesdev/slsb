@@ -7,6 +7,7 @@ import Like from './Components/Like.vue';
 import LikeCounter from './Components/LikeCounter.vue';
 import CategorySearch from './Components/CategorySearch.vue';
 import GameResult from './Components/GameResult.vue';
+import FavoriteGamesTab from './Components/FavoriteGamesTab.vue';
 
 const emitter = mitt();
 const app = createApp({});
@@ -18,5 +19,6 @@ app.component('follow', Follow);
 app.component('followcounter', FollowCounter);
 app.component('categorysearch', CategorySearch);
 app.component('gameresult', GameResult);
+app.component('favoritegamestab', FavoriteGamesTab);
 
 app.mount('#app');

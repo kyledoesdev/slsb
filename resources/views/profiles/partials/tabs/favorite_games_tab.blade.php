@@ -8,17 +8,14 @@
             @endif
         </div>
         <div class="row">
-            @forelse ($user->profile->userProfileFavoriteGames as $game)
-                <div class="col d-flex justify-content-center m-0 p-0">
-                    <img class="mb-2" src="{{ $game->formatted_box_art_url }}" alt="{{ $game->game_title }}">
-                    <button class="btn btn-sm btn-primary" style="max-height: 30px; transform: translate(-115%, 15%);">
-                        <i class="fa fa-times pb-2"></i>
-                    </button>
-                </div>
-                
-            @empty
-                <span>{{ $user->username }} has no favorite games saved.</span>
-            @endforelse
+            <favoritegamestab
+                :games="{{ $user->profile->userProfileFavoriteGames }}"
+                storeroute="{{ route('favorite_game.store', $user->getUserName()) }}"
+                deleteroute="{{ route('favorite_game.delete', auth()->user()->getUserName() )}}"
+                profileusername="{{ $user->getUserName() }}"
+                authusername="{{ auth()->user()->getUserName() }}"
+            >
+            </favoritegamestab>
         </div>
     </div>
 </div>

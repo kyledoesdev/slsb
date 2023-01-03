@@ -18,7 +18,6 @@ require('./vue-booter');
  */
 require('./routes/_dashboard');
 require('./routes/post/_edit');
-require('./routes/profile/_show');
 
 
 /**

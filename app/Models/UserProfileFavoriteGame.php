@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
 class UserProfileFavoriteGame extends Model {
     use HasFactory;
+    use SoftDeletes;
 
     public $table = 'user_profile_favorite_games';
 
@@ -23,9 +26,11 @@ class UserProfileFavoriteGame extends Model {
         parent::boot();
 
         static::creating(function ($game) {
-            if (Auth::check() && Auth::User()->isTwitchUser()) {
+            if (auth()->user()->isTwitchUser()) {
                 $game->profile_id = auth()->user()->getUserProfileId();
             }
         });
+
+        static::addGlobalScope('orderBy', fn (Builder $builder) => $builder->orderBy('game_title', 'ASC'));
     }
 }

@@ -6,9 +6,7 @@
 
 </template>
 
-<script>
-
-    import { emitter } from "../vue-booter";
+<script lang="js">
 
     export default {
 
