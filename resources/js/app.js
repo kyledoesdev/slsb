@@ -1,16 +1,5 @@
-/**
- * Bootstrap application with essentials
- */
 require('./bootstrap');
-
-/**
- * Define global spacelampsix globals
- */
 require('./spacelampsix');
-
-/**
- * Boot Vue JS
- */
 require('./vue-booter');
 
 /**
@@ -18,9 +7,3 @@ require('./vue-booter');
  */
 require('./routes/_dashboard');
 require('./routes/post/_edit');
-
-
-/**
- * Require external packages
- */
-require('./toast-ui-editor');

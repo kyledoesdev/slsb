@@ -28,6 +28,5 @@
         @include('profiles.partials.tabs.favorite_games_tab')
         @include('profiles.partials.tabs.pc_specs_tab')
         @include('profiles.partials.tabs.links_tab')
-
     </div>
 </div>

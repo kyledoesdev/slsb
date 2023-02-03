@@ -28,7 +28,7 @@ class PostController extends Controller {
             'is_featured' => $request->input('is_featured') == 'on' ? true : false
         ]);
         
-        return redirect()->route('post.show', ['post' => $post])->with(['success' => 'New Post succesfully created.']);
+        return redirect(route('post.show', ['post' => $post]))->with(['success' => 'New Post succesfully created.']);
     }
 
     public function show($id) {
@@ -41,11 +41,11 @@ class PostController extends Controller {
 
     public function update(UpdatePostRequest $request, $id) {
         $this->post->updatePost($request->all());
-        return back()->with(['success' => 'Post succesfully updated.']);
+        return redirect()->back()->with(['success' => 'Post succesfully updated.']);
     }
 
     public function destroy($id) {
         $this->post->delete();
-        return redirect()->route('home')->with(['success' => 'Post succesfully deleted.']);
+        return redirect(route('home'))->with(['success' => 'Post succesfully deleted.']);
     }
 }

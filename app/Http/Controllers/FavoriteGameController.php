@@ -2,87 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserProfileFavoriteGame;
-use App\Models\User;
-
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Log;
+use App\Models\User;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use App\Models\UserProfileFavoriteGame;
 
 class FavoriteGameController extends Controller {
 
     protected $client;
     protected $userProfile;
 
-    public function __construct() {
+    public function __construct(Request $request) {
         $this->client = new Client();
-    }
 
-    public function searchForCategory(Request $request) {
-        $phrase = $request->input('search-term');
-
-        if (!isset($phrase) || $phrase === '') {
-            abort(400);
-        }
-
-        $response = $this->client->request(
-            "GET",
-            "https://api.twitch.tv/helix/search/categories?query={$phrase}&first=9", [
-                'headers' => [
-                    'Authorization' => 'Bearer '.auth()->user()->external_token,
-                    'Content-Type' => 'application/json',
-                    'Client-Id' => env('TWITCH_CLIENT_ID'),
-                ],
-            ]
-        );
-
-        $body = json_decode($response->getBody());
-        $results = [];
-
-        $favoriteGames = UserProfileFavoriteGame::query()
-            ->where('profile_id', auth()->user()->getUserProfileId())
-            ->pluck('game_title')
-            ->toArray();
-
-        foreach ($body->data as $game) {
-            if (!in_array($game->name, $favoriteGames)) {
-                array_push($results, $game);
-            }
-        }
-
-        return response()->json($results);
-    }
-    
-    public function store(Request $request) {
-        $userProfile = User::query()
-            ->where('username', $request->input('username'))
-            ->first()
+        $this->userProfile = User::query()
+            ->where('username', $request->route('id'))
+            ->firstOrFail()
             ->profile;
+    }
 
-        if ($userProfile && $userProfile->canHaveMoreFavoriteGames()) {
-            $favoriteGame = UserProfileFavoriteGame::query()
-                ->withTrashed()
-                ->where('game_id', $request->input('game_id'))
-                ->where('profile_id', $userProfile->getId());
+    public function store(Request $request) {
+        $gameId = $request->input('game_id');
 
-            if ($favoriteGame->exists()) {
-                $favoriteGame->first()->restore();
+        if ($this->userProfile->canHaveMoreFavoriteGames()) {
+            $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($gameId, $this->userProfile->getId(), true);
 
+            if ($favoriteGame) {
+                $favoriteGame->restore();
             } else {
-                $favoriteGame = UserProfileFavoriteGame::updateOrCreate([
-                    'game_id' => $request->input('game_id'),
-                ], [
-                    'game_title' => $request->input('game_title'),
-                    'box_art_url' => $request->input('box_art_url'),
-                    'formatted_box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/'.$request->input('game_id').'-285x380.jpg',
-                ]);
+                $favoriteGame = UserProfileFavoriteGame::createProfileFavoriteGame($request->all());
             }
 
             return response()->json([
-               'games' => UserProfileFavoriteGame::query()
-                    ->where('profile_id', auth()->user()->getUserProfileId())
-                    ->orderBy('game_title', 'ASC')
-                    ->get()
+               'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->getId())
             ]);
         }
 
@@ -94,26 +47,14 @@ class FavoriteGameController extends Controller {
     }
 
     public function delete(Request $request) {
-        
-        $userProfile = User::query()
-            ->where('username', $request->input('username'))
-            ->first()
-            ->profile;
+        $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($request->input('game_id'), $this->userProfile->getId());
 
-        if ($userProfile) {
-            $favoriteGame = UserProfileFavoriteGame::query()
-                ->where('profile_id', $userProfile->getId())
-                ->where('game_id', $request->input('game_id'))
-                ->first();
-
+        if ($favoriteGame) {
             $favoriteGame->delete();
         }
 
         return response()->json([
-            'games' => UserProfileFavoriteGame::query()
-                ->where('profile_id', auth()->user()->getUserProfileId())
-                ->orderBy('game_title', 'ASC')
-                ->get()
+            'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->getId())
         ]);
     }
 

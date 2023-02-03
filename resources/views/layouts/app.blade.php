@@ -6,22 +6,25 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'spacelampsix') }}</title>
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <script src="https://kit.fontawesome.com/07b7751319.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        
     </head>
-    <body style="background-color:#424549">
+    <body class="{{ get_route() . '-background'}}">
         <div id="app">
             @include('layouts.includes.nav')
             <main class="py-4">
                 @include('includes.messages')
                 @yield('content')
-                @yield('styles')
                 @yield('scripts')
             </main>
         </div>

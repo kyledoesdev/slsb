@@ -48,6 +48,13 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
+    public function getProfileForUsername($username) {
+        return self::query()
+            ->where('username', $username)
+            ->first()
+            ->profile;
+    }
+
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'followee_user_id', 'follower_user_id')
             ->whereNull('deleted_at');

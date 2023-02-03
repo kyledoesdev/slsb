@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Twitch;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\DisconnectFromTwitchRequest;
-use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
-use App\Models\UserType;
-use App\Models\UserProfile;
 use Carbon\Carbon;
-use Auth;
+use App\Models\User;
+use App\Models\UserProfile;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Requests\DisconnectFromTwitchRequest;
 
-class TwitchController extends Controller {
-
+class TwitchAuthenticationController extends Controller {
 
     public function redirectToTwitchProvider() {
         return Socialite::driver('twitch')

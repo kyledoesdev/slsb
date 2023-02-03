@@ -1,4 +1,4 @@
-<div class="card overflow-auto">
+<div class="card overflow-auto" @if ($post->isFeatured()) style="max-height: 600px;" @endif>
     <!-- Post Title Bar -->
     <section class="card-header">
         <div class="row">
@@ -14,7 +14,7 @@
     </section>
 
     <!-- Markdown content -->
-    <section class="card-body overflow-auto mb-2" @if (Route::currentRouteName() === 'profile.show') style="max-height: 270px;" @endif>
+    <section class="card-body overflow-auto mb-2">
         {!! Str::markdown($post->getBody()) !!}
     </section>
 
@@ -38,9 +38,9 @@
                 @endguest
             </div>
             <div class="justify-content-end">
-            @if (Route::currentRouteName() != 'post.show')
-                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary rounded-pill shadow-none mb-0">View</a>
-            @endif
+                @if (get_route() != 'post.show')
+                        <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary border border-2 border-dark rounded-pill shadow-none mb-0">View</a>
+                @endif
             </div>
         </div>
     </section>

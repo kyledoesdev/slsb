@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('login/twitch', [App\Http\Controllers\TwitchController::class, 'redirectToTwitchProvider']);
-Route::get('login/twitch/callback', [App\Http\Controllers\TwitchController::class, 'handleTwitchProviderCallback']);
+Route::get('login/twitch', [App\Http\Controllers\Twitch\TwitchAuthenticationController::class, 'redirectToTwitchProvider']);
+Route::get('login/twitch/callback', [App\Http\Controllers\Twitch\TwitchAuthenticationController::class, 'handleTwitchProviderCallback']);
 Route::get('/about-avatars', [App\Http\Controllers\AboutController::class, 'avatars'])->name('about.avatars');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/{id}/edit', [App\Http\Controllers\UserProfileController::class, 'edit'])->name('profile.edit');
         Route::post('/{id}/update', [App\Http\Controllers\UserProfileController::class, 'update'])->name('profile.update');
         Route::get('/{id}/settings', [App\Http\Controllers\UserAccountSettingsController::class, 'index'])->name('user.settings');
-        Route::post('/{id}/settings/unlink_twitch', [App\Http\Controllers\TwitchController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
+        Route::post('/{id}/settings/unlink_twitch', [App\Http\Controllers\TwitchAuthenticationController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
     
         /**
          * Favorite Game Tab
@@ -66,5 +66,5 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
     });
 
-    Route::get('/twitch/categories', [App\Http\Controllers\FavoriteGameController::class, 'searchForCategory'])->name('favorite_game.search');
+    Route::get('/twitch/categories', [App\Http\Controllers\Twitch\TwitchSearchController::class, 'searchForCategory'])->name('favorite_game.search');
 });

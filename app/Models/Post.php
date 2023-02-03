@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model {
     use HasFactory;
@@ -79,7 +80,7 @@ class Post extends Model {
         $this->update([
             'title' => $updates['title'],
             'body' => $updates['body'] === null ? '' : $updates['body'],
-            'is_featured' => $updates['is_featured'] !== null && $updates['is_featured'] === 'on' ? true : $this->isFeatured()
+            'is_featured' => array_key_exists('is_featured', $updates) && $updates['is_featured'] === 'on' ? true : false
         ]);
     }
 

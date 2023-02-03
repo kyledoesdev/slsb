@@ -15,12 +15,6 @@
                                 />
                             @endif
                         </div>
-                        <div class="col tex-start">
-                            @inject('userTypes', 'App\Models\UserType')
-                            @if ($user->isAdmin() && $user == auth()->user())
-                                <a href="{{ route('dashboard') }}" class="btn btn-primary rounded-pill border border-2 border-dark">Dashboard</a>
-                            @endif
-                        </div>
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="{{ $user->profile->avatar }}" alt="Admin" class="rounded-circle border border-5 border-dark" width="110">
                             <div class="mt-3">
@@ -65,6 +59,12 @@
                                 />
                             </div>
                         </div>
+                        <hr class="my-4">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col text-center m-0 p-0">
+                                <likecounter like-count="{{ $user->getAllLikes() }}"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,11 +73,11 @@
                     <h2 class="mt-2 mb-1">Featured Post &#128204;</h2>
                 </div>
                 @if ($featuredPost)
-                    <div class="border border-3 border-dark mt-2 rounded">
+                    <div class="border border-3 border-dark mt-2 mb-2 rounded" style="max-height: 600px;">
                         @include('includes.markdown_content', ['post' => $featuredPost])
                     </div>
                 @else
-                    <div class="card card-body border border-3 border-dark mt-2 rounded h-50">
+                    <div class="card card-body border border-3 border-dark mt-2 rounded">
                         <h5 class="mx-2 mt-2 mb-0">{{ $user->username }} has no featured post.</h5 >
                     </div>
                 @endif

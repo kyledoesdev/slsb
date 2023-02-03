@@ -1,5 +1,3 @@
-import { editor } from "../toast-ui-editor";
-
 window.spacelampsix.dashboard = window.spacelampsix.dashboard || {};
 
 window.spacelampsix.dashboard = {
@@ -12,7 +10,7 @@ window.spacelampsix.dashboard = {
         if (document.querySelector('#createPostForm')) {
             document.querySelector('#createPostForm').addEventListener('submit', e => {
                 e.preventDefault();
-                document.querySelector('#content').value = editor.getMarkdown();
+                document.querySelector('#content').value = spacelampsix.toast.getMarkdown();
                 e.target.submit();
             });
         }

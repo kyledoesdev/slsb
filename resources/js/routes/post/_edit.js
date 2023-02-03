@@ -1,5 +1,3 @@
-import { editor } from "../../toast-ui-editor";
-
 window.spacelampsix.post = window.spacelampsix.post || {};
 window.spacelampsix.post.edit = window.spacelampsix.post.edit || {};
 
@@ -7,7 +5,7 @@ window.spacelampsix.post.edit = {
 
     boot: function () {
         let body = $('#post-body').val();
-        editor.setMarkdown(body);
+        spacelampsix.toast.setMarkdown(body);
 
         let checkbox = $('#featured_checkbox');
         checkbox.on('click', () => {
@@ -17,7 +15,7 @@ window.spacelampsix.post.edit = {
         if (document.querySelector('#editPostForm')) {
             document.querySelector('#editPostForm').addEventListener('submit', e => {
                 e.preventDefault();
-                document.querySelector('#content').value = editor.getMarkdown();
+                document.querySelector('#content').value = spacelampsix.toast.getMarkdown();
                 e.target.submit();
             });
         }

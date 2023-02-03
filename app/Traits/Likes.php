@@ -19,8 +19,8 @@ trait Likes {
      */
     public function like(Post $post) : bool {
         $like = Like::query()
-            ->where('likers_user_id', '=', $this->getId())
-            ->where('post_id', '=', $post->getId())
+            ->where('likers_user_id', $this->getId())
+            ->where('post_id', $post->getId())
             ->withTrashed()
             ->first();
 
@@ -57,8 +57,8 @@ trait Likes {
      */
     public function unlike(Post $post) : bool {
         $like = Like::query()
-            ->where('likers_user_id', '=', $this->getId())
-            ->where('post_id', '=', $post->getId());
+            ->where('likers_user_id', $this->getId())
+            ->where('post_id', $post->getId());
 
         $totalLikes = $post->getNumOfLikes();
 
@@ -86,8 +86,8 @@ trait Likes {
      */
     public function isLiking(Post $post) : bool {
         $like = Like::query()
-            ->where('likers_user_id', '=', $this->getId())
-            ->where('post_id', '=', $post->getId())
+            ->where('likers_user_id', $this->getId())
+            ->where('post_id', $post->getId())
             ->exists();
 
         if($like == null) {
@@ -107,18 +107,13 @@ trait Likes {
      */
     public function getAllLikes() : int {
         $posts = Post::query()
-            ->where('user_id', '=', $this->getId())
+            ->where('user_id', $this->getId())
             ->get();
 
-        if (count($posts) <= 0) {
+        if (count($posts) === 0) {
             return 0;
         }
 
-        $sum = 0;
-        foreach($posts as $post) {
-            $sum += $post->total_like_count;
-        }
-
-        return $sum;
+        return $posts->sum('total_like_count');
     }
 }
