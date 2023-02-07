@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserProfileRequest;
-use App\Models\User;
-use App\Models\UserProfile;
-use App\Models\Post;
 
 class UserProfileController extends Controller {
 
@@ -16,7 +15,7 @@ class UserProfileController extends Controller {
         $this->user = User::where('username', $request->route('id'))->firstOrFail();
     }
 
-    public function show($id) {
+    public function show() {
         return view('profiles.show', [
             'user' => $this->user,
             'featuredPost' => Post::getFeaturedPostForUser($this->user),
@@ -24,11 +23,11 @@ class UserProfileController extends Controller {
         ]);
     }
 
-    public function edit($id) {
+    public function edit() {
         return view('profiles.edit', ['user' => $this->user]);
     }
 
-    public function update(UpdateUserProfileRequest $request, $id) {
+    public function update(UpdateUserProfileRequest $request) {
         $this->user->updateUserProfile(collect($request->all()));
         return redirect()->route('profile.show', ['id' => $this->user->username]);
     }

@@ -10,10 +10,12 @@
         <div class="row">
             <favoritegamestab
                 :games="{{ $user->profile->userProfileFavoriteGames }}"
-                storeroute="{{ route('favorite_game.store', $user->getUserName()) }}"
-                deleteroute="{{ route('favorite_game.delete', auth()->user()->getUserName() )}}"
                 profileusername="{{ $user->getUserName() }}"
-                authusername="{{ auth()->user()->getUserName() }}"
+                @if (auth()->check())
+                    storeroute="{{ route('favorite_game.store', $user->getUserName()) }}"
+                    deleteroute="{{ route('favorite_game.delete', auth()->user()->getUserName() )}}"
+                    authusername="{{ auth()->user()->getUserName() }}"
+                @endif
             >
             </favoritegamestab>
         </div>

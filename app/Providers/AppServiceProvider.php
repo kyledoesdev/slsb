@@ -2,22 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Database\Schema\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
-{
+class AppServiceProvider extends ServiceProvider {
+
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
-        if (env('REDIRECT_HTTPS')) {
-            $this->app['request']->server->set('HTTPS', true);
+    public function register() {
+        if ($this->app->isLocal()) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }
 
@@ -26,12 +24,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        if (env('REDIRECT_HTTPS')) {
-            $url->formatScheme('https');
-        }
-
+    public function boot() {
         Paginator::useBootstrap();
+        Model::preventLazyLoading();
     }
 }

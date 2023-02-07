@@ -2,23 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
-use App\Models\Post;
 use App\Models\Like;
-use App\Models\Follow;
-
-use App\Traits\Likes;
+use App\Models\UserProfile;
+use App\Models\UserType;
 use App\Traits\Follows;
+use App\Traits\Likes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
     use Likes;
     use Follows;
 
@@ -113,7 +104,7 @@ class User extends Authenticatable {
 
         $updates['avatar'] = $this->profile->avatar;
 
-        if ($updates['avatar_type'] && $updates['seed']) {
+        if (isset($updates['avatar_type']) && isset($updates['seed'])) {
             $updates['avatar'] = $this->generateNewAvatar($updates['avatar_type'], $updates['seed']);
         }
         
@@ -122,10 +113,10 @@ class User extends Authenticatable {
             'last_name' => $updates['last_name'] ?? $this->last_name
         ]);
 
-        $fields = ['birthday', 'location', 'bio', 'avatar'];
+        $fields = ['birthday', 'location', 'bio', 'avatar', 'background_color'];
 
         foreach ($fields as $field) {
-            $this->profile->{$field} = $updates[$field];
+            $this->profile->{$field} = isset($updates[$field]) ? $updates[$field] : $this->profile->{$field};
         }
 
         $this->profile->save();

@@ -7,12 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateUserProfileRequest extends FormRequest {
 
     public function authorize() {
-        return true;
+        return auth()->check();
     }
 
     public function rules() {
         //If not a twitch user
-        if (!auth()->user()->isTwitchUser()) {
+        if (! auth()->user()->isTwitchUser()) {
             return [
                 'first_name' => 'nullable|string|max:32',
                 'last_name' => 'nullable|string|max:32',
@@ -21,6 +21,7 @@ class UpdateUserProfileRequest extends FormRequest {
                 'avatar-type' => 'nullable|string|',
                 'seed' => 'nullable|string|max:32',
                 'birthday' => 'nullable|date',
+                'background_color' => 'nullable',
             ];
         }
 
@@ -29,6 +30,7 @@ class UpdateUserProfileRequest extends FormRequest {
             'last_name' => 'nullable|string|max:32',
             'location' => 'nullable|string|max:64',
             'birthday' => 'nullable|date',
+            'background_color' => 'nullable',
         ];
     }
 }

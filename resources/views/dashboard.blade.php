@@ -4,8 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @inject('userType', 'App\Models\UserType')
-                @if (in_array(auth()->user()->userType->id, array($userType::SUPER_ADMIN , $userType::ADMIN)))
+                @if (in_array(auth()->user()->userType->id, Helpers::getAdminTypeIds()))
                     <div class="card">
                         <div class="card-header">Test Markdown</div>
                             <form method="POST" action="{{ route('post.store') }}" id="createPostForm" >

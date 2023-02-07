@@ -6,7 +6,7 @@
                 <div class="card shadow p-3 rounded border border-3 border-dark">
                     <div class="card-body">
                         <div class="col text-end">
-                            @if(auth()->id() != $user->getId())
+                            @if(auth()->check() && (auth()->id() != $user->getId()))
                                 <follow
                                     user-id="{{ $user->getId() }}"
                                     state="{{ auth()->user()->isFollowing($user) }}"

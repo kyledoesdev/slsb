@@ -19,7 +19,13 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         
     </head>
-    <body class="{{ get_route() . '-background'}}">
+    @php
+        if (! isset($user)) {
+            $user = null;
+        }   
+    @endphp
+
+    <body @if (Helpers::checkForUserBackgroundColor($user)) style="background: {{ $user->profile->background_color}}" @else class="{{ get_route() . '-background'}}" @endif>
         <div id="app">
             @include('layouts.includes.nav')
             <main class="py-4">

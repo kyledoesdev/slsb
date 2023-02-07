@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Follow extends Model {
     use SoftDeletes;
 
-    public $table = 'follows';
+    protected $table = 'follows';
 
     /**
      * Follower is typically $this user.

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Twitch;
 
-use Log;
-use App\Models\User;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use App\Models\UserProfileFavoriteGame;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Request;
 
 class TwitchSearchController {
 
     protected $client;
 
-    public function __construct(Request $request) {
+    public function __construct() {
         $this->client = new Client();
     }
 

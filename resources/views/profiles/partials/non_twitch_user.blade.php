@@ -14,9 +14,15 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 mb-2">
-      <label class="form-label">Location</label>
-      <input class="form-control" type="text" name="location" placeholder="Earth, Milkyway"></input>
+    <div class="row">
+        <div class="col-md-8 mb-2">
+            <label class="form-label">Location</label>
+            <input class="form-control" type="text" name="location" placeholder="Earth, Milkyway"></input>
+          </div>
+          <div class="col-md-4">
+              <label class="form-label">Background Color</label>
+              <input class="form-control" type="color" name="background_color" title="Select a background color for your profile page.">
+          </div>
     </div>
     <div class="row mb-2">
       <div class="col-md-5">

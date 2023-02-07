@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model {
+
     use HasFactory;
     use SoftDeletes;
 
-    public $table = 'posts';
+    protected $table = 'posts';
 
     protected $fillable = [
         'user_id', 
@@ -21,19 +22,25 @@ class Post extends Model {
         'total_like_count'
     ];
 
+    protected $with = [
+        'user'
+    ];
+
     public static function boot() {
         parent::boot();
 
-        static::creating(function($post) {
-            $userId = Auth::check() ? auth()->id() : null;
-            $post->user_id = $userId;
+        $userId = auth()->check() ? auth()->id() : null;
+
+        static::creating(function($post) use ($userId) {
+            if ($userId) {
+                $post->user_id = $userId;
+            }
         });
     }
 
     /**
      * Queries
      */
-
     public static function getFeaturedPostForUser(User $user) {
         return self::query()
             ->where('user_id', $user->id)

@@ -59,7 +59,6 @@
             return {
                 gameinput: "",
                 games: [],
-                errorMsg: null
             }
         },
 
