@@ -7,7 +7,7 @@
                 @if (in_array(auth()->user()->userType->id, Helpers::getAdminTypeIds()))
                     <div class="card">
                         <div class="card-header">Test Markdown</div>
-                            <form method="POST" action="{{ route('post.store') }}" id="createPostForm" >
+                            <form method="POST" action="{{ route('post.store') }}" id="create-post-form" >
                                 @csrf
                                 <div class="col-md-8 pt-4 px-4">
                                     <div class="mb-2">

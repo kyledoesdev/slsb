@@ -73,7 +73,7 @@
                     <h2 class="mt-2 mb-1">Featured Post &#128204;</h2>
                 </div>
                 @if ($featuredPost)
-                    <div class="border border-3 border-dark mt-2 mb-2 rounded" style="max-height: 600px;">
+                    <div class="col-lg-12 border border-3 border-dark mt-2 mb-2 rounded" style="max-height: 600px;">
                         @include('includes.markdown_content', ['post' => $featuredPost])
                     </div>
                 @else

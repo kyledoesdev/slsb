@@ -4,21 +4,26 @@ window.spacelampsix.post.edit = window.spacelampsix.post.edit || {};
 window.spacelampsix.post.edit = {
 
     boot: function () {
-        let body = $('#post-body').val();
-        spacelampsix.toast.setMarkdown(body);
+        /**
+         * Set the markdown content in Toast
+         */
+        spacelampsix.toast.setMarkdown($('#post-body').val());
 
-        let checkbox = $('#featured_checkbox');
-        checkbox.on('click', () => {
-            confirm('Are you sure you want to make this post featured? It will un-feature your current featured post.');
+        /**
+         * Alert that updating the post to "featured", will un-feature their current post.
+         */
+        $('#featured_checkbox').on('click', () => {
+            confirm('Are you sure you want to make this post featured? It will "un-feature" your current featured post.');
         });
 
-        if (document.querySelector('#editPostForm')) {
-            document.querySelector('#editPostForm').addEventListener('submit', e => {
-                e.preventDefault();
-                document.querySelector('#content').value = spacelampsix.toast.getMarkdown();
-                e.target.submit();
-            });
-        }
+        /**
+         * On form submission, set the "body" field with the Toast markdown content
+         */
+        $('#update-post-form').on('submit', (event) => {
+            event.preventDefault();
+            document.querySelector('#content').value = spacelampsix.toast.getMarkdown();
+            event.target.submit();
+        });
     }
 
 }

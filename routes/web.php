@@ -19,7 +19,7 @@ Route::get('/login/twitch/callback', [App\Http\Controllers\Twitch\TwitchAuthenti
 Route::get('/about-avatars', [App\Http\Controllers\AboutController::class, 'avatars'])->name('about.avatars');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/p/{id}', [App\Http\Controllers\UserProfileController::class, 'show'])->name('profile.show');
+Route::get('/post/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
 
 Route::middleware(['auth'])->group(function() {
 
@@ -28,12 +28,11 @@ Route::middleware(['auth'])->group(function() {
     /**
      * Posts
      */
-    Route::get('/post/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
     Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
+    Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     
     Route::middleware('posts')->group(function() {
         Route::get('/post/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
-        Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
         Route::post('/post/{id}/update', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
         Route::post('/post/{id}/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
     });
@@ -67,3 +66,5 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/like/{id}', [App\Http\Controllers\LikeController::class, 'like'])->name('post.like');
     Route::post('/unlike/{id}', [App\Http\Controllers\LikeController::class, 'unlike'])->name('post.unlike');
 });
+
+Route::get('{id}', [App\Http\Controllers\UserProfileController::class, 'show'])->name('profile.show');

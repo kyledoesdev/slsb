@@ -1,7 +1,7 @@
 <template>
 
     <section class="section">
-        <div>
+        <div class="mt-2">
             <span v-text="likesText"></span>
         </div>
     </section>

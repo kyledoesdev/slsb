@@ -28,24 +28,28 @@ class PostController extends Controller {
             'is_featured' => $request->input('is_featured') == 'on' ? true : false
         ]);
         
-        return redirect(route('post.show', ['post' => $post]))->with(['success' => 'New Post succesfully created.']);
+        return redirect(route('post.show', [
+            'id' => $post->id,
+            'post' => $post,
+            'success' => 'New Post succesfully created.',
+        ]));
     }
 
-    public function show($id) {
+    public function show() {
         return view('posts.show', ['post' => $this->post]);
     }
 
-    public function edit($id) {
+    public function edit() {
         return view('posts.edit', ['post' => $this->post]);
     }
 
-    public function update(UpdatePostRequest $request, $id) {
+    public function update(UpdatePostRequest $request) {
         $this->post->updatePost($request->all());
         return redirect()->back()->with(['success' => 'Post succesfully updated.']);
     }
 
-    public function destroy($id) {
+    public function destroy() {
         $this->post->delete();
-        return redirect(route('home'))->with(['success' => 'Post succesfully deleted.']);
+        return redirect()->route('home')->with(['success' => 'Post succesfully deleted.']);
     }
 }
