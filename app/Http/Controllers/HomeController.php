@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
 
 class HomeController extends Controller {
 
     public function index() {
-
-        if (auth()->id() == null) {
-            return view('home', ['posts' => Post::all()]);
+        if (! auth()->check()) {
+            return view('home', ['posts' => Post::with(['user', 'likes'])->get()]);
         }
 
-        $posts = Post::query()->paginate(10);
+        $posts = Post::query()->with(['user', 'likes'])->orderBy('created_at', 'DESC')->paginate(10);
         return view('home', ['posts' => $posts]);
     }
 }

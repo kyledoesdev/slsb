@@ -1,8 +1,8 @@
-<div class="container" style="margin-top: 10px;">
+<div class="container mt-4">
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-bs-toggle="tab" href="#tab_1">
-                {{ Helpers::makeUsernamePossessive($user->username ) }} posts
+                {{ Helpers::possessive($user->username ) }} posts
             </a>
         </li>
         @if ($user->isTwitchUser())

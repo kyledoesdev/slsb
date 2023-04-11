@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Twitch;
 
 use App\Models\UserProfileFavoriteGame;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class TwitchSearchController {
 

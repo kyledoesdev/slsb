@@ -7,6 +7,10 @@
         <div class="col-md-12">
             @include('includes.markdown_content')
         </div>
+
+        <div class="col-md-12">
+            @include('posts.partials.comments')
+        </div>
     </div>
 </div>
 

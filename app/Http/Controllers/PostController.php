@@ -36,7 +36,10 @@ class PostController extends Controller {
     }
 
     public function show() {
-        return view('posts.show', ['post' => $this->post]);
+        return view('posts.show', [
+            'post' => $this->post,
+            'comments' => $this->post->getComments(),
+        ]);
     }
 
     public function edit() {

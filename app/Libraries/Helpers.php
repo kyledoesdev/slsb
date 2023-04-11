@@ -6,7 +6,7 @@ use App\Models\UserType;
 
 class Helpers {
 
-    static function makeUsernamePossessive($username) {
+    static function possessive($username) {
         $lastLetter = substr($username, -1);
 
         if ($lastLetter === 's') {

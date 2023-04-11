@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Post extends Model {
-
     use HasFactory;
     use SoftDeletes;
 
@@ -20,10 +22,6 @@ class Post extends Model {
         'body', 
         'is_featured', 
         'total_like_count'
-    ];
-
-    protected $with = [
-        'user'
     ];
 
     public static function boot() {
@@ -41,22 +39,38 @@ class Post extends Model {
     /**
      * Queries
      */
-    public static function getFeaturedPostForUser(User $user) {
+    public static function getFeaturedPostForUser(User $user) : ?self {
         return self::query()
             ->where('user_id', $user->id)
             ->where('is_featured', true)
             ->first();
     }
 
-    public static function getAllPostsForAUser(User $user) {
+    public static function getAllPostsForAUser(User $user) : Collection {
         return self::query()
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'DESC')
             ->get();
     }
 
-    public function user() {
+    public function getComments() : Collection {
+        return $this->comments()
+            ->whereNull('parent_id')
+            ->with('replies')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+    }
+
+    public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments() : HasMany {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes() : HasMany {
+        return $this->hasMany(Like::class);
     }
 
     public function getId() {
@@ -83,7 +97,11 @@ class Post extends Model {
         return $this->is_featured;
     }
 
-    public function updatePost($updates) {
+    public function getFormattedCreatedAt() : string {
+        return Carbon::parse($this->created_at)->tz(timezone())->format('M-d-Y h:i:s T');
+    }
+
+    public function updatePost($updates) : void {
         $this->update([
             'title' => $updates['title'],
             'body' => $updates['body'] === null ? '' : $updates['body'],

@@ -41,7 +41,8 @@ class CreateNewUser implements CreatesNewUsers {
             'profile_id' => UserProfile::create([
                 'avatar' => "https://avatars.dicebear.com/api/identicon/" . $input['username'] . ".svg"
             ])->pluck('id')->first(),
-            'user_type_id' => UserType::BASIC //Default all users to Basic. Only admin users can make other admins
+            'user_type_id' => UserType::BASIC, //Default all users to Basic. Only admin users can make other admins
+            'timezone' => getDeviceTimezone()
         ]);
 
         $profile = UserProfile::where('id', $user->profile_id)->first();

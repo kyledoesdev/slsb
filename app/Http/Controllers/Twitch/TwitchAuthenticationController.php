@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Twitch;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserProfile;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -45,6 +44,7 @@ class TwitchAuthenticationController extends Controller {
             'username' => $usernameExists->exists() ? $usernameExists->first()->username : $twitchUser->name,
             'twitch_name' => $twitchUser->name,
             'email' => $twitchUser->email,
+            'timezone' => getDeviceTimezone(),
             'user_type_id' => $usernameExists->exists() ? $usernameExists->first()->user_type_id : UserType::BASIC,
             'external_token' => $twitchUser->token,
             'external_refresh_token' => $twitchUser->refreshToken,

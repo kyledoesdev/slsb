@@ -8,7 +8,7 @@
 
 </template>
 
-<script lang="js">
+<script>
     export default {
 
         props: ['likeCount'],
@@ -20,7 +20,7 @@
         },
 
         created() {
-            this.emitter.emit('totalLikes', (data) => {
+            this.emitter.on('totalLikes', (data) => {
                 this.likes = data;
             });
 

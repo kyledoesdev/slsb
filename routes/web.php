@@ -65,6 +65,14 @@ Route::middleware(['auth'])->group(function() {
 
     Route::post('/like/{id}', [App\Http\Controllers\LikeController::class, 'like'])->name('post.like');
     Route::post('/unlike/{id}', [App\Http\Controllers\LikeController::class, 'unlike'])->name('post.unlike');
+
+    /**
+     * Comments
+     */
+    Route::post('/comment/{postId}/store', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
+    Route::post('/comment/{commentId}/update', [App\Http\Controllers\CommentController::class, 'update'])->name('comment.update');
+    Route::post('/comment/{commentId}/delete', [App\Http\Controllers\CommentController::class, 'delete'])->name('comment.delete');
+    Route::post('/comment/{commentId}/reply', [App\Http\Controllers\CommentController::class, 'reply'])->name('comment.reply');
 });
 
 Route::get('{id}', [App\Http\Controllers\UserProfileController::class, 'show'])->name('profile.show');

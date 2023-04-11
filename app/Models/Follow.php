@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Follow extends Model {
+
     use SoftDeletes;
 
     protected $table = 'follows';
+
+    public $timestamps = true;
 
     /**
      * Follower is typically $this user.

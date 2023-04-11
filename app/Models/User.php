@@ -22,6 +22,7 @@ class User extends Authenticatable {
         'last_name',
         'email',
         'password',
+        'timezone',
         'profile_id',
         'user_type_id',
         'external_token',
@@ -39,6 +40,10 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'profile'
+    ];
+
     public function getProfileForUsername($username) {
         return self::query()
             ->where('username', $username)
@@ -48,11 +53,13 @@ class User extends Authenticatable {
 
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'followee_user_id', 'follower_user_id')
+            ->withTimestamps()
             ->whereNull('deleted_at');
     }
 
     public function following() {
         return $this->belongsToMany(User::class, 'follows', 'follower_user_id', 'followee_user_id')
+            ->withTimestamps()
             ->whereNull('deleted_at');
     }
 
@@ -66,6 +73,10 @@ class User extends Authenticatable {
 
     public function userType() {
         return $this->hasOne(UserType::class, 'id', 'user_type_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 
     public function getId() {

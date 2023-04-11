@@ -85,16 +85,7 @@ trait Likes {
      * @return bool
      */
     public function isLiking(Post $post) : bool {
-        $like = Like::query()
-            ->where('likers_user_id', $this->getId())
-            ->where('post_id', $post->getId())
-            ->exists();
-
-        if($like == null) {
-            return false;
-        }
-
-        return true;
+        return $post->likes->contains('likers_user_id', $this->getId());
     }
 
     /**

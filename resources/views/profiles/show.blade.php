@@ -70,7 +70,7 @@
             </div>
             <div class="col-lg-8 mb-2">
                 <div class="card card-body border border-3 border-dark">
-                    <h2 class="mt-2 mb-1">Featured Post &#128204;</h2>
+                    <h1 class="mt-2 mb-1">Featured Post &#128204;</h1>
                 </div>
                 @if ($featuredPost)
                     <div class="col-lg-12 border border-3 border-dark mt-2 mb-2 rounded" style="max-height: 600px;">
