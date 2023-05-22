@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-5">
             <label class="form-label">Background Color</label>
-            <input class="form-control" type="color" name="background_color" title="Select a background color for your profile page.">
+            <input class="form-control" type="color" name="background_color" title="Select a background color for your profile page." value="{{ $user->profile->background_color}}">
         </div>
     </div>
     <div class="row m-2">

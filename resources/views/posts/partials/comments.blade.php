@@ -30,7 +30,9 @@
     </div>
     <div class="mx-3">
         @foreach($comments as $comment)
-            @include('posts.partials.comment', ['comment' => $comment])
+            @include('posts.partials.comment', [
+                'comment' => $comment,
+            ])
         @endforeach
     </div>
 </div>

@@ -21,13 +21,7 @@ class Comment extends Model {
         'user_id',
         'post_id',
         'comment',
-        'vote_count',
         'is_reply'
-    ];
-
-    protected $with = [
-        'user',
-        'replies'
     ];
 
     public static function boot() {
@@ -47,7 +41,15 @@ class Comment extends Model {
     }
 
     public function replies() : HasMany {
-        return $this->hasMany(self::class, 'parent_id', 'id')->with('replies');
+        return $this->hasMany(self::class, 'parent_id', 'id')
+            ->with('replies', fn($query) => 
+                $query->orderBy('created_at', 'DESC')
+                    ->limit(5)
+            );
+    }
+
+    public function commentRatings() : HasMany {
+        return $this->hasMany(CommentRating::class);
     }
 
     public function user() : BelongsTo {

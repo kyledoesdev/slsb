@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-4">
               <label class="form-label">Background Color</label>
-              <input class="form-control" type="color" name="background_color" title="Select a background color for your profile page.">
+              <input class="form-control" type="color" name="background_color" title="Select a background color for your profile page." value="{{ $user->profile->background_color}}">
           </div>
     </div>
     <div class="row mb-2">
@@ -48,6 +48,7 @@
     </div>
     <div class="row m-2">
       <div class="col text-center">
+        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         <button type="submit" class="btn btn-outline-primary text-center text-black">Update</button>
       </div>
     </div>

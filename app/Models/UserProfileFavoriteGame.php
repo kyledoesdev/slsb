@@ -35,7 +35,7 @@ class UserProfileFavoriteGame extends Model {
 
     public static function getSpecificProfileFavoriteGame($gameId, $profileId, $trashed = false) {
         return self::query()
-            ->when($trashed === true, fn ($query) => $query->withTrashed())
+            ->when($trashed === true, fn($query) => $query->withTrashed())
             ->where('game_id', $gameId)
             ->where('profile_id', $profileId)
             ->first();
@@ -48,7 +48,7 @@ class UserProfileFavoriteGame extends Model {
             ->get();
     }
 
-    public static function createProfileFavoriteGame($fields) {
+    public static function createProfileFavoriteGame($fields) : void {
         self::updateOrCreate([
             'game_id' => $fields['game_id'],
         ], [

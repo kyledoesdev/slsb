@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\UserProfile;
 use App\Models\UserType;
@@ -39,17 +40,6 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected $with = [
-        'profile'
-    ];
-
-    public function getProfileForUsername($username) {
-        return self::query()
-            ->where('username', $username)
-            ->first()
-            ->profile;
-    }
 
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'followee_user_id', 'follower_user_id')
@@ -109,6 +99,14 @@ class User extends Authenticatable {
 
     public function isTwitchUser() : bool {
         return $this->external_id != null;
+    }
+
+    public function hasRatingForComment(Comment $comment) : bool {
+        return $comment->commentRatings && $comment->commentRatings->contains('user_id', $this->id);
+    }
+
+    public function getRatingTypeForComment(Comment $comment, string $status) : bool {
+        return $comment->commentRatings && $comment->commentRatings->where($status, true)->contains('user_id', $this->id);
     }
 
     public function updateUserProfile($updates) {

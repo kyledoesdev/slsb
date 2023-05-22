@@ -27,9 +27,9 @@ class Post extends Model {
     public static function boot() {
         parent::boot();
 
-        $userId = auth()->check() ? auth()->id() : null;
+        static::creating(function($post) {
+            $userId = auth()->check() ? auth()->id() : null;
 
-        static::creating(function($post) use ($userId) {
             if ($userId) {
                 $post->user_id = $userId;
             }
@@ -48,15 +48,23 @@ class Post extends Model {
 
     public static function getAllPostsForAUser(User $user) : Collection {
         return self::query()
+            ->select('id', 'user_id', 'title', 'created_at')
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'DESC')
             ->get();
     }
 
-    public function getComments() : Collection {
+    public function getComments() {
         return $this->comments()
             ->whereNull('parent_id')
-            ->with('replies')
+            ->with([
+                'user.profile',
+                'commentRatings',
+                'replies',
+                'replies.user',
+                'replies.user.profile',
+                'replies.commentRatings'
+            ])
             ->orderBy('created_at', 'DESC')
             ->get();
     }

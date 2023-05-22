@@ -44,7 +44,7 @@
                 @endguest
             </div>
             <div class="justify-content-end">
-                @if (get_route() === 'post.show' && auth()->user() == $post->user)
+                @if (get_route() === 'post.show' && auth()->id() == $post->user->id)
                     <a href="{{ route('post.edit', $post->id) }}" class="btn btn-dark border border-2 border-dark rounded-pill shadow-none mb-0">Edit Post</a>
                 @elseif (get_route() !== 'post.show')
                     <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary border border-2 border-dark rounded-pill shadow-none mb-0"><i class="fa-sharp fa-solid fa-comments"></i></a>

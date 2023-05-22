@@ -10,11 +10,9 @@ class FollowController extends Controller {
     protected $user;
 
     public function __construct(Request $request) {
-        $username = $request->route('id');
-
-        if ($username && is_string($username) && User::where('username', $username)->exists()) {
-            $this->user = User::where('username', $username)->first();
-        }
+        $this->user = User::query()
+            ->where('username', $request->route('id'))
+            ->firstOrFail();
     }
 
     public function follow($id) {

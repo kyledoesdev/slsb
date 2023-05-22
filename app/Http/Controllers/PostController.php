@@ -8,13 +8,12 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 
 class PostController extends Controller {
-
     protected $post;
 
     public function __construct(Request $request) {
-        if ($request->route('id') !== null) {
-            $this->post = Post::where('id', $request->route('id'))->firstOrFail();
-        }
+        $this->post = Post::query()
+            ->where('id', $request->route('id'))
+            ->firstOrFail();
     }
 
     public function create() {

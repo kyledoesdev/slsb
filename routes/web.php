@@ -73,6 +73,8 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/comment/{commentId}/update', [App\Http\Controllers\CommentController::class, 'update'])->name('comment.update');
     Route::post('/comment/{commentId}/delete', [App\Http\Controllers\CommentController::class, 'delete'])->name('comment.delete');
     Route::post('/comment/{commentId}/reply', [App\Http\Controllers\CommentController::class, 'reply'])->name('comment.reply');
+    
+    Route::post('/comment/{commentId}/rate', [App\Http\Controllers\CommentRatingController::class, 'vote'])->name('comment.vote');
 });
 
 Route::get('{id}', [App\Http\Controllers\UserProfileController::class, 'show'])->name('profile.show');

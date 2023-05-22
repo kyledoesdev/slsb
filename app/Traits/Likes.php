@@ -97,14 +97,11 @@ trait Likes {
      * @return int
      */
     public function getAllLikes() : int {
-        $posts = Post::query()
+        $likeCount = Post::query()
             ->where('user_id', $this->getId())
-            ->get();
+            ->pluck('total_like_count')
+            ->toArray();
 
-        if (count($posts) === 0) {
-            return 0;
-        }
-
-        return $posts->sum('total_like_count');
+        return array_sum($likeCount);
     }
 }

@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserProfileRequest;
 
 class UserProfileController extends Controller {
-
     protected $user;
 
     public function __construct(Request $request) {
-        $this->user = User::where('username', $request->route('id'))->firstOrFail();
+        $this->user = User::query()
+            ->where('username', $request->route('id'))
+            ->with('profile')
+            ->firstOrFail();
     }
 
     public function show() {

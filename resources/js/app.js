@@ -6,5 +6,5 @@ require('./vue-booter');
  * TODO Find a way to dynamically load all routes for a file.
  */
 require('./routes/_dashboard');
-require('./routes/post/_edit');
-require('./routes/post/_show');
+require('./routes/post/_edit.js');
+require('./routes/post/_show.js');
