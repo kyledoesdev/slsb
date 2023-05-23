@@ -28,7 +28,6 @@ Route::middleware(['auth'])->group(function() {
     /**
      * Posts
      */
-    Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     
     Route::middleware('posts')->group(function() {
@@ -60,8 +59,8 @@ Route::middleware(['auth'])->group(function() {
      */
     Route::post('/follow/{id}', [App\Http\Controllers\FollowController::class, 'follow'])->name('user.follow');
     Route::post('/unfollow/{id}', [App\Http\Controllers\FollowController::class, 'unfollow'])->name('user.unfollow');
-    Route::get('/{id}/followers', [App\Http\Controllers\FollowController::class, 'followersList'])->name('user.follower_list');
-    Route::get('/{id}/following', [App\Http\Controllers\FollowController::class, 'followingList'])->name('user.following_list');
+    Route::get('/{id}/followers', [App\Http\Controllers\FollowListController::class, 'followersList'])->name('user.follower_list');
+    Route::get('/{id}/following', [App\Http\Controllers\FollowListController::class, 'followingList'])->name('user.following_list');
 
     Route::post('/like/{id}', [App\Http\Controllers\LikeController::class, 'like'])->name('post.like');
     Route::post('/unlike/{id}', [App\Http\Controllers\LikeController::class, 'unlike'])->name('post.unlike');

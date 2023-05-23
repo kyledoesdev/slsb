@@ -1,7 +1,9 @@
 <template>
 
     <section>
-        <button id="follow-button" class="btn btn-primary rounded-pill border border-2 border-warning" @click="updateFollowing" v-text="followingButtonText"></button>
+        <button id="follow-button" class="btn btn-primary rounded-pill border border-2 border-warning" @click="updateFollowing">
+            <i :class="followingButtonText"></i>
+        </button>
     </section>
 
 </template>
@@ -54,7 +56,7 @@
 
         computed: {
             followingButtonText() {
-                return (this.status) ? 'Unfollow' : 'Follow';
+                return (this.status) ? 'fa-solid fa-xmark' : 'fa-solid fa-check';
             },
 
             followersText() {

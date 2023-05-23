@@ -3,7 +3,7 @@
     <section class="card-header">
         <div class="row">
             <div class="col-md-10 d-flex justify-content-start">
-                <h1 class="mb-0 mt-3">{{ $post->title }}</h1>
+                <h1 class="mb-0 mt-3">{{ $post->title }} @if(get_route() === 'profile.show'  && $post->isFeatured()) &#128204; @endif</h1>
             </div>
             <div class="col-md-2 d-flex justify-content-end">
                 @if (get_route() !== 'profile.show')

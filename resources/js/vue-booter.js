@@ -9,6 +9,7 @@ import CategorySearch from './Components/CategorySearch.vue';
 import GameResult from './Components/GameResult.vue';
 import FavoriteGamesTab from './Components/FavoriteGamesTab.vue';
 import Rating from './Components/Rating.vue';
+import Dashboard from './Components/Dashboard.vue';
 
 const emitter = mitt();
 const app = createApp({});
@@ -22,5 +23,6 @@ app.component('categorysearch', CategorySearch);
 app.component('gameresult', GameResult);
 app.component('favoritegamestab', FavoriteGamesTab);
 app.component('rating', Rating);
+app.component('dashboard', Dashboard);
 
 app.mount('#app');

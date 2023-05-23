@@ -11,27 +11,27 @@ class PostController extends Controller {
     protected $post;
 
     public function __construct(Request $request) {
-        $this->post = Post::query()
-            ->where('id', $request->route('id'))
-            ->firstOrFail();
-    }
-
-    public function create() {
-        return view('posts.create');
+        if (get_route() !== 'post.store') {
+            $this->post = Post::query()
+                ->where('id', $request->route('id'))
+                ->firstOrFail();
+        }
     }
 
     public function store(CreatePostRequest $request) {
         $post = Post::create([
             'title' => $request->title,
             'body' => $request->body,
-            'is_featured' => $request->input('is_featured') == 'on' ? true : false
+            'is_featured' => $request->input('is_featured'),
         ]);
         
-        return redirect(route('post.show', [
-            'id' => $post->id,
-            'post' => $post,
-            'success' => 'New Post succesfully created.',
-        ]));
+        return response()->json([
+            'redirect' => route('post.show', [
+                'id' => $post->id,
+                'post' => $post,
+                'success' => 'New Post succesfully created.',
+            ])
+        ]);
     }
 
     public function show() {
