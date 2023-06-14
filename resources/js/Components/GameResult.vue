@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="col d-flex justify-content-center m-0 p-0">
-                <img class="mb-2" :src="getImageSrc()" :alt="this.gamename">
+                <img class="mb-2" :src="getImageSrc()" :alt="this.gamename" width="142" height="190">
                 <!-- For an unauthenticated user, profileusername is set, and authusername is null -->
                 <button 
                     v-if="this.profileusername === this.authusername"

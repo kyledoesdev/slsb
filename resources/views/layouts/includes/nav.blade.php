@@ -29,7 +29,7 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ms-auto">
-                @auth
+                @if(auth()->check())
                     <li class="nav-item dropdown mt-1">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <img class="rounded-pill" src="{{ auth()->user()->profile->avatar }}" height="30" width="30"/>

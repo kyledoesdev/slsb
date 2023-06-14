@@ -1,4 +1,4 @@
-<div class="tab-pane container fade" id="tab_2">
+<div class="tab-pane container fade" id="tab_2" style="max-height: 550px; overflow-y: auto;">
     <div class="parent-favorite-games-container">
         <div class="row">
             @if ($user->getId() == auth()->id())

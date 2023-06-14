@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,13 +28,9 @@ class Comment extends Model {
     public static function boot() {
         parent::boot();
 
-        $userId = auth()->check() ? auth()->id() : null;
-
-        if ($userId) {
-            static::creating(function($comment) use ($userId){
-                $comment->user_id = $userId;
-            });
-        }
+        static::creating(function($comment) {
+            $comment->user_id = auth()->id();    
+        });
     }
 
     public function isNotAReply() {
@@ -41,11 +38,7 @@ class Comment extends Model {
     }
 
     public function replies() : HasMany {
-        return $this->hasMany(self::class, 'parent_id', 'id')
-            ->with('replies', fn($query) => 
-                $query->orderBy('created_at', 'DESC')
-                    ->limit(5)
-            );
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     public function commentRatings() : HasMany {

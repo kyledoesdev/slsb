@@ -7,11 +7,16 @@
             </div>
             <div class="col-md-2 d-flex justify-content-end">
                 @if (get_route() !== 'profile.show')
-                    <a class="mt-2 my-2" href="{{ route('profile.show', $post->user->username) }}" title="{{ $post->user->username }}" style="text-decoration: none;"> 
+                    <a 
+                        class="mt-2 my-2" 
+                        href="{{ route('profile.show', $post->user->username) }}" 
+                        title="{{ $post->user->username }}" 
+                        style="text-decoration: none;"
+                    > 
                         <img 
                             class="border border-2 border-dark rounded-pill"
                             src="{{ $post->user->profile->avatar }}" 
-                            alt="{{ $post->user->username }}" 
+                            alt="{{ $post->user->username }}"
                             width="50" 
                             height="50"
                         />
@@ -30,24 +35,25 @@
     <section class="card-footer">
         <div class="d-flex justify-content-between">
             <div class="justify-content-start">
-                @auth
+                @if (auth()->check())
                     <like
                         post-id= "{{ $post->getId() }}"
                         likes= "{{ auth()->user()->isLiking($post) }}"
                         count= "{{ $post->getNumOfLikes() }}"
                     />
-                @endauth
-                @guest
+                @else
                     <likecounter
                         like-count="{{ $post->getNumOfLikes() }}"
                     />
-                @endguest
+                @endif
             </div>
             <div class="justify-content-end">
                 @if (get_route() === 'post.show' && auth()->id() == $post->user->id)
                     <a href="{{ route('post.edit', $post->id) }}" class="btn btn-dark border border-2 border-dark rounded-pill shadow-none mb-0">Edit Post</a>
                 @elseif (get_route() !== 'post.show')
-                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary border border-2 border-dark rounded-pill shadow-none mb-0"><i class="fa-sharp fa-solid fa-comments"></i></a>
+                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary border border-2 border-dark rounded-pill shadow-none mb-0">
+                        <i class="fa-sharp fa-solid fa-comments"></i>
+                    </a>
                 @endif
             </div>
         </div>

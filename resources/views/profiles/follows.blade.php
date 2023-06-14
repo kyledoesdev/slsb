@@ -13,7 +13,7 @@
                             width="50" 
                         />
                     </div> 
-                    <h5 class="col mt-3 text-white">{{ $user->username }} ({{ $user->pivot->updated_at->format('M-d-Y') }})</h5>
+                    <h5 class="col mt-3 text-white">{{ $user->username }} ({{ $user->pivot->updated_at->diffForHumans() }})</h5>
                 @else
                     <div class="col-auto">
                         <img 
@@ -23,7 +23,7 @@
                             width="50" 
                         />
                     </div>
-                    <h5 class="col mt-3 text-white">{{ $user->username }} ({{ $user->pivot->updated_at->format('M-d-Y') }})</h5>
+                    <h5 class="col mt-3 text-white">{{ $user->username }} ({{ $user->pivot->updated_at->diffForHumans() }})</h5>
                 @endif
             </div>
         @empty

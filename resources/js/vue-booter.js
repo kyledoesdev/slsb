@@ -8,8 +8,9 @@ import LikeCounter from './Components/LikeCounter.vue';
 import CategorySearch from './Components/CategorySearch.vue';
 import GameResult from './Components/GameResult.vue';
 import FavoriteGamesTab from './Components/FavoriteGamesTab.vue';
-import Rating from './Components/Rating.vue';
+import RatingButtonGroup from './Components/RatingButtonGroup.vue';
 import Dashboard from './Components/Dashboard.vue';
+import PostEditor from './Components/PostEditor.vue';
 
 const emitter = mitt();
 const app = createApp({});
@@ -22,7 +23,8 @@ app.component('followcounter', FollowCounter);
 app.component('categorysearch', CategorySearch);
 app.component('gameresult', GameResult);
 app.component('favoritegamestab', FavoriteGamesTab);
-app.component('rating', Rating);
+app.component('ratingbtngroup', RatingButtonGroup);
 app.component('dashboard', Dashboard);
+app.component('posteditor', PostEditor);
 
 app.mount('#app');

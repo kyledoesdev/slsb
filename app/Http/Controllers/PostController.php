@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller {
     protected $post;
@@ -35,9 +36,11 @@ class PostController extends Controller {
     }
 
     public function show() {
+        $comments = $this->post->getComments();
+
         return view('posts.show', [
             'post' => $this->post,
-            'comments' => $this->post->getComments(),
+            'comments' => $comments,
         ]);
     }
 
@@ -47,7 +50,14 @@ class PostController extends Controller {
 
     public function update(UpdatePostRequest $request) {
         $this->post->updatePost($request->all());
-        return redirect()->back()->with(['success' => 'Post succesfully updated.']);
+
+        return response()->json([
+            'redirect' => route('post.show', [
+                'id' => $this->post->id,
+                'post' => $this->post,
+                'success' => 'Post succesfully updated.',
+            ])
+        ]);
     }
 
     public function destroy() {

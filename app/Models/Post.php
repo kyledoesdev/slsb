@@ -28,11 +28,7 @@ class Post extends Model {
         parent::boot();
 
         static::creating(function($post) {
-            $userId = auth()->check() ? auth()->id() : null;
-
-            if ($userId) {
-                $post->user_id = $userId;
-            }
+            $post->user_id = auth()->id();
         });
     }
 
@@ -56,16 +52,8 @@ class Post extends Model {
 
     public function getComments() {
         return $this->comments()
-            ->whereNull('parent_id')
-            ->with([
-                'user.profile',
-                'commentRatings',
-                'replies',
-                'replies.user',
-                'replies.user.profile',
-                'replies.commentRatings'
-            ])
             ->orderBy('created_at', 'DESC')
+            ->with(['user', 'user.profile', 'commentRatings'])
             ->get();
     }
 
@@ -113,7 +101,7 @@ class Post extends Model {
         $this->update([
             'title' => $updates['title'],
             'body' => $updates['body'] === null ? '' : $updates['body'],
-            'is_featured' => array_key_exists('is_featured', $updates) && $updates['is_featured'] === 'on' ? true : false
+            'is_featured' => array_key_exists('is_featured', $updates) && $updates['is_featured'] == 1 ? true : false
         ]);
     }
 

@@ -82,6 +82,11 @@
                 </div>
             </div>
             <div class="col-lg-8 mb-2">
+                <div class="card shadow p-3 rounded border border-3 border-dark">
+                    @include('profiles.partials.tabs.root')
+                </div>
+            </div>
+            <div class="col-lg-12">
                 @if ($featuredPost)
                     <div class="col-lg-12 border border-3 border-dark mt-2 mb-2 rounded" style="max-height: 600px;">
                         @include('includes.markdown_content', ['post' => $featuredPost])
@@ -91,11 +96,6 @@
                         <h5 class="mx-2 mt-2 mb-0">{{ $user->username }} has no featured post. &#128204;</h5 >
                     </div>
                 @endif
-            </div>
-            <div class="col-lg-12">
-                <div class="card shadow p-3 rounded border border-3 border-dark">
-                    @include('profiles.partials.tabs.root')
-                </div>
             </div>
         </div>
     </div>

@@ -10,18 +10,33 @@
             <a 
                 class="btn btn-outline-dark pt-1 pb-1" 
                 data-bs-toggle="modal" 
-                :data-bs-target="getModalTarget()" 
+                :data-bs-target="getReplyModalString" 
                 style="text-decoration: none; cursor: pointer;"
             >
                 <span class="mt-1"><i class="fa-regular fa-message p-0"></i><span class="mx-1">Reply</span></span>
             </a>
+            <button class="btn btn-sm btn-primary btn-outline-dark" 
+                :value="id" 
+                data-bs-toggle="modal" 
+                :data-bs-target="editCommentModalString"
+                v-if="this.authuser === this.commentuser"
+            >
+                <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-outline-dark delete-comment" 
+                :value="id" 
+                :form="deleteCommentModalString"
+                v-if="this.authuser === this.commentuser"
+            >
+                <i class="fa-solid fa-trash"></i>
+            </button>
         </div>
     </section>
 </template>
 
 <script>
     export default {
-        props: ['id', 'vote_count', 'hasrating', 'uprating', 'downrating'],
+        props: ['id', 'commentuser', 'authuser', 'vote_count', 'hasrating', 'uprating', 'downrating'],
 
         data: function() {
             return {
@@ -64,13 +79,9 @@
                     }
                 })
                 .catch(error => {
-
+                    console.log(error);
                 });
             },
-
-            getModalTarget() {
-                return '#add-reply-'+this.id;
-            }
         },
 
         computed: {
@@ -80,10 +91,22 @@
                     : 'btn btn-outline-primary border border-1 border-dark pt-1 pb-1';
             },
 
+            getReplyModalString() {
+                return '#add-reply-'+this.id;
+            },
+
             downRatingButton() {
                 return this.down_status
                     ? 'btn btn-secondary border border-1 border-dark pt-1 pb-1'
                     : 'btn btn-outline-secondary border border-1 border-dark pt-1 pb-1';
+            },
+
+            editCommentModalString() {
+                return "#edit-comment-" + this.id;
+            },
+
+            deleteCommentModalString() {
+                return "delete-comment-" + this.id;
             }
         },
     }
