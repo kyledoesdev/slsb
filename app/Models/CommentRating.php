@@ -28,11 +28,7 @@ class CommentRating extends Model {
         parent::boot();
 
         static::creating(function($rating) {
-            $userId = auth()->check() ? auth()->id() : null; 
-
-            if ($userId) {
-                $rating->user_id = $userId;
-            }
+            $rating->user_id = auth()->id();
         });
     }
 

@@ -36,11 +36,18 @@ class PostController extends Controller {
     }
 
     public function show() {
-        $comments = $this->post->getComments();
+        $comments = $this->post->comments()
+            ->orderBy('created_at', 'DESC')
+            ->with('user', 'user.profile', 'commentRatings')
+            ->get();
+
+        $topLevelComments = $comments->whereNull('parent_id');
+        $commentsByParentId = $comments->groupBy('parent_id');
 
         return view('posts.show', [
             'post' => $this->post,
-            'comments' => $comments,
+            'comments' => $topLevelComments,
+            'commentsByParentId' => $commentsByParentId
         ]);
     }
 

@@ -50,13 +50,6 @@ class Post extends Model {
             ->get();
     }
 
-    public function getComments() {
-        return $this->comments()
-            ->orderBy('created_at', 'DESC')
-            ->with(['user', 'user.profile', 'commentRatings'])
-            ->get();
-    }
-
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
     }

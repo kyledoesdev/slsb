@@ -35,7 +35,7 @@
     <section class="card-footer">
         <div class="d-flex justify-content-between">
             <div class="justify-content-start">
-                @if (auth()->check())
+                @if (auth()->hasUser())
                     <like
                         post-id= "{{ $post->getId() }}"
                         likes= "{{ auth()->user()->isLiking($post) }}"

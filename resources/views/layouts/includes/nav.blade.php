@@ -15,13 +15,13 @@
                         <i class="fa fa-search fa-2xl"></i>
                     </a>
                 </li>
-                @auth
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link text-white m-2" data-bs-placement="right">
-                        <i class="fa fa-rocket fa-2xl"></i>
-                    </a>
-                </li>
-                @endauth
+                @if(auth()->hasUser())
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}" class="nav-link text-white m-2" data-bs-placement="right">
+                            <i class="fa fa-rocket fa-2xl"></i>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
         <div class="mx-auto order-0">

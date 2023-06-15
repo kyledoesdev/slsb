@@ -26,8 +26,8 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-md-4">
-            @auth
+        <div class="col-md-6">
+            @if(auth()->hasUser())
                 <div class="mb-2">
                     <ratingbtngroup
                         id="{{ $comment->id }}"
@@ -42,8 +42,7 @@
                 @include('posts.partials.edit_comment_modal', ['comment' => $comment])
                 @include('posts.partials.reply_comment_modal', ['comment' => $comment])
                 @include('posts.partials.delete_comment_form', ['comment' => $comment])
-            @endauth
-            @guest
+            @else
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary border border-1 border-dark pt-1 pb-1" disabled>
                         <i class="fa-solid fa-arrow-up"></i><span class="p-1 text-dark">{{ count($comment->commentRatings->where('rating_type', 'up')) }}</span>
@@ -52,8 +51,19 @@
                         <i class="fa-solid fa-arrow-down"></i>
                     </button>
                 </div>
-            @endguest
+            @endif
         </div>
         <br />
+        @if(!empty($commentsByParentId->get($comment->id)))
+            <div class="replies mt-1">
+                @foreach ($commentsByParentId->get($comment->id) as $reply)
+                    @if ($loop->index <= 5) {{-- temp --}}
+                        @include('posts.partials.comment', [
+                            'comment' => $reply,
+                        ])
+                    @endif
+                @endforeach
+            </div>
+        @endif
     </div>
 </div>
