@@ -24,7 +24,7 @@
                             </div>
                         @endif
                         <div class="col text-end">
-                            @if(auth()->hasUser() && (auth()->id() != $user->getId()))
+                            @if(auth()->check() && auth()->id() != $user->getId())
                                 <follow
                                     user-id="{{ $user->getId() }}"
                                     state="{{ auth()->user()->isFollowing($user) }}"

@@ -10,7 +10,7 @@ function getDeviceTimezone() : string {
     $ip = file_get_contents("http://ipecho.net/plain");
     $url = 'http://ip-api.com/json/'.$ip;
 
-    return  json_decode(file_get_contents($url), true)['timezone'];
+    return json_decode(file_get_contents($url), true)['timezone'];
 }
 
 /**
@@ -19,7 +19,7 @@ function getDeviceTimezone() : string {
  * @return string
  */
 function timezone() : string {
-    return auth()->user() && auth()->user()->timezone
-        ? auth()->user()->timezone
-        : getDeviceTimezone();
+    $user = auth()->user();
+
+    return $user && $user->timezone ? $user->timezone : getDeviceTimezone();
 }

@@ -20,8 +20,7 @@ class PostsMiddleware
     {
         $PostsUserId = Post::query()
             ->where('id', $request->route('id'))
-            ->first()
-            ->getUserId();
+            ->pluck('user_id');
         
         abort_if($PostsUserId != auth()->id(), 403);
 

@@ -37,10 +37,6 @@ class Comment extends Model {
         return self::where('is_reply', false);
     }
 
-    public function replies() : HasMany {
-        return $this->hasMany(self::class, 'parent_id', 'id');
-    }
-
     public function commentRatings() : HasMany {
         return $this->hasMany(CommentRating::class);
     }

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Log;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\UserProfileFavoriteGame;
 
 class FavoriteGameController extends Controller {
-
     protected $client;
     protected $userProfile;
 

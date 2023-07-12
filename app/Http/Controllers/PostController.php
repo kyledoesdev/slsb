@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -69,6 +68,6 @@ class PostController extends Controller {
 
     public function destroy() {
         $this->post->delete();
-        return redirect()->route('home')->with(['success' => 'Post succesfully deleted.']);
+        return redirect(route('home'))->with(['success' => 'Post succesfully deleted.']);
     }
 }

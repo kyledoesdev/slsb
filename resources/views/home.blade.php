@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center mb-2">
-            <div class="col-md-12 mb-2">
+            <div class="col-md-8 mb-2">
                 @forelse ($posts as $post)
                     <div class="card mb-4">
                         @include('includes.markdown_content')
