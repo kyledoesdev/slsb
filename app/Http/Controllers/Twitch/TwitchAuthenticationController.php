@@ -22,14 +22,13 @@ class TwitchAuthenticationController extends Controller {
         $twitchUser = Socialite::driver('twitch')->stateless()->user();
 
         //try to find a user with email from socialite user exists but they are not a twitch user
-        $userExists = User::query()
+        $user = User::query()
             ->where('email', $twitchUser->email)
             ->where('external_id', null);
 
-
         //if that user exists, then they are trying to connect their account to twitch
-        if ($userExists->exists()) {
-            $user = $userExists->first();
+        if ($user->exists()) {
+            $user = $user->first();
             return self::connectAccountWithTwitch($twitchUser, $user);
         }
 
@@ -54,7 +53,7 @@ class TwitchAuthenticationController extends Controller {
         ]);
 
         $profile = UserProfile::updateOrCreate([
-            'user_id' => $user->getId()
+            'user_id' => $user->id
         ], [
             'avatar' => $twitchUser->avatar,
             'bio' => $twitchUser->user['description']
@@ -73,8 +72,9 @@ class TwitchAuthenticationController extends Controller {
         /**
          * Check user is not trying to reconnect after disconnecting not long ago
          */
-        $connected_at = Carbon::parse($existingUser->connected_timestamp);
-        if ($connected_at->diffInDays(now()) < 0) {
+        $connectedAt = Carbon::parse($existingUser->connected_timestamp);
+
+        if ($connectedAt->diffInDays(now()) < 0) {
             return redirect()->route('profile.show', ['id' => $existingUser->username])
                 ->withErrors(['error' => 'You must wait 24 hours']);
         }
@@ -111,7 +111,7 @@ class TwitchAuthenticationController extends Controller {
             'external_refresh_token' => $twitchUser->refreshToken,
             'connected_timestamp' => now(),
             'profile_id' => UserProfile::updateOrCreate([
-                'user_id' => $existingUser->getId()
+                'user_id' => $existingUser->id
             ], [
                 'avatar' => $twitchUser->avatar,
                 'bio' => $twitchUser->user['description']

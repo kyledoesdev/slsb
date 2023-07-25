@@ -13,7 +13,6 @@ class UserProfileController extends Controller {
     public function __construct(Request $request) {
         $this->user = User::query()
             ->where('username', $request->route('id'))
-            ->with('profile')
             ->firstOrFail();
     }
 

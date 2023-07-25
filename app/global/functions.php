@@ -23,3 +23,11 @@ function timezone() : string {
 
     return $user && $user->timezone ? $user->timezone : getDeviceTimezone();
 }
+
+function getBgColor($user) : bool {
+    return
+        $user !== null && 
+        $user->profile &&
+        $user->profile->background_color &&
+        get_route() === 'profile.show';
+}

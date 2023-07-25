@@ -9,11 +9,12 @@
                 id="new_comment" 
                 cols="30" 
                 rows="10"
-                maxlength="255"
+                maxlength="256"
+                oninput="displayCharsLeft(this, 256)"
             ></textarea>
             <div class="row">
                 <div class="col d-flex justify-content-start mt-1">
-                    <span>Chars Left: <i id="charsLeft">255</i></span>
+                    <i id="charsLeft"></i>
                 </div>
                 <div class="col d-flex justify-content-end m-2">
                     <button class="btn btn-sm btn-primary"><i class="fa-regular fa-paper-plane"></i></button>

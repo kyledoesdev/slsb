@@ -19,7 +19,8 @@ class UserProfileMiddleware {
     public function handle(Request $request, Closure $next) {
         $UserId = User::query()
             ->where('username', $request->route('id'))
-            ->pluck('id');
+            ->first()
+            ->id;
             
         abort_if($UserId != auth()->id(), 403);
         

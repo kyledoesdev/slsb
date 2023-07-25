@@ -11,7 +11,7 @@ class HomeController extends Controller {
         }
 
         $posts = Post::query()
-            ->with(['user', 'user.profile', 'likes'])
+            ->with(['user', 'likes'])
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
 

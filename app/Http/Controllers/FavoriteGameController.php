@@ -24,7 +24,7 @@ class FavoriteGameController extends Controller {
         $gameId = $request->input('game_id');
 
         if ($this->userProfile->canHaveMoreFavoriteGames()) {
-            $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($gameId, $this->userProfile->getId(), true);
+            $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($gameId, $this->userProfile->id, true);
 
             if ($favoriteGame) {
                 $favoriteGame->restore();
@@ -33,7 +33,7 @@ class FavoriteGameController extends Controller {
             }
 
             return response()->json([
-               'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->getId())
+               'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
             ]);
         }
 
@@ -45,14 +45,14 @@ class FavoriteGameController extends Controller {
     }
 
     public function delete(Request $request) {
-        $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($request->input('game_id'), $this->userProfile->getId());
+        $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($request->input('game_id'), $this->userProfile->id);
 
         if ($favoriteGame) {
             $favoriteGame->delete();
         }
 
         return response()->json([
-            'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->getId())
+            'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
         ]);
     }
 

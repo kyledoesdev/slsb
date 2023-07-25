@@ -37,7 +37,7 @@
             <div class="justify-content-start">
                 @if (auth()->hasUser())
                     <like
-                        post-id= "{{ $post->getId() }}"
+                        post-id= "{{ $post->id }}"
                         likes= "{{ auth()->user()->isLiking($post) }}"
                         count= "{{ $post->getNumOfLikes() }}"
                     />

@@ -1,5 +1,5 @@
 <template>
-    <div class="col mx-2" v-for="game in favorites" :key="game.game_id">
+    <div class="col-auto" v-for="game in favorites" :key="game.game_id">
         <gameresult
             :gameid="game.game_id"
             :gamename="game.game_title"

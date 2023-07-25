@@ -10,8 +10,8 @@ trait Follows {
     public function follow(User $userWeAreFollowing) : bool {
         $follow = Follow::query()
             ->withTrashed()
-            ->where('follower_user_id', $this->getId())
-            ->where('followee_user_id', $userWeAreFollowing->getId())
+            ->where('follower_user_id', $this->id)
+            ->where('followee_user_id', $userWeAreFollowing->id)
             ->first();
 
         if ($follow != null) {
@@ -20,8 +20,8 @@ trait Follows {
         }
 
         $follow = new Follow;
-        $follow->follower_user_id = $this->getId(); //$this user is a new follower
-        $follow->followee_user_id = $userWeAreFollowing->getId(); //the user we are following is the followee
+        $follow->follower_user_id = $this->id; //$this user is a new follower
+        $follow->followee_user_id = $userWeAreFollowing->id; //the user we are following is the followee
         $follow->save();
 
         return true;
@@ -33,8 +33,8 @@ trait Follows {
         }
 
         $follow = Follow::query()
-            ->where('follower_user_id', $this->getId())
-            ->where('followee_user_id', $userWeAreUnFollowing->getId());
+            ->where('follower_user_id', $this->id)
+            ->where('followee_user_id', $userWeAreUnFollowing->id);
 
         if ($follow == null) {
             return false;
@@ -47,8 +47,8 @@ trait Follows {
     public function isFollowing(User $followee) : bool {
         //checking if $this user is a follower of the $followee
         $follow = Follow::query()
-            ->where('follower_user_id', $this->getId())
-            ->where('followee_user_id', $followee->getId())
+            ->where('follower_user_id', $this->id)
+            ->where('followee_user_id', $followee->id)
             ->first();
 
         if ($follow == null) {

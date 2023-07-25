@@ -35,7 +35,9 @@
                             <img class="rounded-pill" src="{{ auth()->user()->profile->avatar }}" height="30" width="30"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('profile.show', ['id' => auth()->user()->username])}}">Profile</a>
+                            <a class="dropdown-item" href="{{ route('profile.show', ['id' => $authUsername])}}">Visit Profile</a>
+                            <a class="dropdown-item" href="{{ route('profile.edit', ['id' => $authUsername]) }}">Edit Profile</a>
+                            <a class="dropdown-item "href="{{ route('user.settings', ['id' => $authUsername ])}}">Account Settings</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Save & Quit
                             </a>

@@ -37,7 +37,7 @@ class PostController extends Controller {
     public function show() {
         $comments = $this->post->comments()
             ->orderBy('created_at', 'DESC')
-            ->with('user', 'user.profile', 'commentRatings')
+            ->with('user', 'commentRatings')
             ->get();
 
         $topLevelComments = $comments->whereNull('parent_id');

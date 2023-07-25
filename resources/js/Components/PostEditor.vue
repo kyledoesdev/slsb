@@ -19,7 +19,7 @@
             <div class="row mt-4">
                 <div class="col-sm-2">
                     <label for="">Featured?</label>
-                    <input type="checkbox" class="form-check-input mx-2" v-model="this.isFeaturePost">
+                    <input type="checkbox" class="form-check-input mx-2" v-model="this.isFeaturePost" @click="isFeaturedWarning">
                 </div>
                 <div class="col d-flex justify-content-end">
                     <button 
@@ -70,6 +70,11 @@
                 .catch(error => {
                     console.error(error);
                 });
+            },
+
+            isFeaturedWarning() {
+                //todo condtionalize for if checked already
+                alert("This will alter the pinned post to your profile.");
             }
 
         },

@@ -7,9 +7,6 @@ use App\Http\Requests\Comments\CommentDeleteRequest;
 use App\Http\Requests\Comments\CommentStoreRequest;
 use App\Http\Requests\Comments\CommentUpdateRequest;
 use App\Models\Comment;
-use App\Models\CommentRating;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller {
     public function store(CommentStoreRequest $request) {

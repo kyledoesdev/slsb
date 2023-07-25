@@ -67,7 +67,7 @@ class Post extends Model {
     }
 
     public function getUserId() {
-        return $this->user->getId();
+        return $this->user->id;
     }
 
     public function getTitle() {

@@ -6,10 +6,9 @@ use App\Models\User;
 
 class FollowController extends Controller {
     public function follow($id) {
-        $follower = auth()->user();
         $followee = User::findOrFail($id);
 
-        $follower->follow($followee);
+        auth()->user()->follow($followee);
 
         return response()->json([
             'followersCount' => count($followee->followers),
@@ -18,10 +17,9 @@ class FollowController extends Controller {
     }
 
     public function unfollow($id) {
-        $follower = auth()->user();
         $followee = User::findOrFail($id);
 
-        $follower->unfollow($followee);
+        auth()->user()->unfollow($followee);
 
         return response()->json([
             'followersCount' => count($followee->followers),

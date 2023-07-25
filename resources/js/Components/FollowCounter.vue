@@ -1,22 +1,20 @@
 <template>
 
-    <section class="section">
+    <section class="mt-2">
         <span>
             <a 
                 :href="this.userFollowersList" 
-                class="btn btn-primary btn-sm border border-2 border-dark mx-1" 
-                style="text-decoration: none;">
-                Followers: 
-                    <span class="fw-bold" v-text="followersText"></span>
+                class="underline-on-hover px-1" 
+                style="color: black;">
+                Followers: <span class="fw-bold" v-text="followersText"></span>
             </a>
         </span>
         <span>
             <a 
                 :href="this.userFollowingList" 
-                class="btn btn-secondary btn-sm border border-2 border-dark" 
-                style="text-decoration: none;">
-                Following: 
-                    <span class="fw-bold" v-text="followingText"></span>
+                class="underline-on-hover" 
+                style=" color: black">
+                Following: <span class="fw-bold" v-text="followingText"></span>
             </a>
         </span>
     </section>
@@ -24,7 +22,6 @@
 </template>
 
 <script lang="js">
-
     export default {
 
         props: ['followersCount', 'followingCount', 'followersList', 'followingList'],
@@ -59,3 +56,16 @@
         }
     };
 </script>
+
+<style>
+    /* Define the default styles */
+    .underline-on-hover {
+        text-decoration: none; /* Remove the underline by default */
+        transition: text-decoration 0.3s ease; /* Optional: Add a smooth transition */
+    }
+
+    /* Apply the underline on hover */
+    .underline-on-hover:hover {
+        text-decoration: underline; /* Add underline on hover */
+    }
+</style>

@@ -14,7 +14,7 @@ class TwitchSearchController {
         $this->client = new Client();
     }
 
-    public function searchForCategory(Request $request) {
+    public function search(Request $request) {
         $phrase = $request->input('search-term');
 
         if (!isset($phrase) || $phrase === '') {
@@ -25,7 +25,7 @@ class TwitchSearchController {
             "GET",
             "https://api.twitch.tv/helix/search/categories?query={$phrase}&first=9", [
                 'headers' => [
-                    'Authorization' => 'Bearer '.auth()->user()->external_token,
+                    'Authorization' => 'Bearer ' . auth()->user()->external_token,
                     'Content-Type' => 'application/json',
                     'Client-Id' => env('TWITCH_CLIENT_ID'),
                 ],

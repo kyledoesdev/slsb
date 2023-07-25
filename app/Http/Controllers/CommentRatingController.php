@@ -28,7 +28,10 @@ class CommentRatingController extends Controller {
 
                 return response()->json([
                     'commentRating' => $commentRating,
-                    'vote_count' => CommentRating::where('comment_id', $id)->where('rating_type', 'up')->count()
+                    'vote_count' => CommentRating::query()
+                        ->where('comment_id', $id)
+                        ->where('rating_type', 'up')
+                        ->count()
                 ]);
             } else if ($commentRating->trashed()) {
                 $commentRating->restore();
@@ -51,7 +54,10 @@ class CommentRatingController extends Controller {
 
         return response()->json([
             'commentRating' => $commentRating,
-            'vote_count' => CommentRating::where('comment_id', $id)->where('rating_type', 'up')->count()
+            'vote_count' => CommentRating::query()
+                ->where('comment_id', $id)
+                ->where('rating_type', 'up')
+                ->count()
         ], 200);
     }
 }

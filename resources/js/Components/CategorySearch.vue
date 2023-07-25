@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="modal fade" id="favoriteGames" tabindex="-1" aria-labelledby="favoriteGamesLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="favoriteGamesLabel">Add a new favorite game.</h1>
@@ -22,7 +22,7 @@
                                         </button>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col mx-2" v-for="(game, index) in games" :key="index">
+                                        <div class="col-auto" v-for="(game, index) in games" :key="index">
                                             <gameresult
                                                 :gameid="game.gameid"
                                                 :gamename="game.gamename"

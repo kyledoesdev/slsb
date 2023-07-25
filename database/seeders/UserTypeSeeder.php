@@ -26,6 +26,6 @@ class UserTypeSeeder extends Seeder {
         ]);
 
         UserProfile::where('id', $user->profile_id)
-            ->update(['user_id' => $user->getId()]);
+            ->update(['user_id' => $user->id]);
     }
 }

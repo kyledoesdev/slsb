@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model {
 
@@ -13,7 +14,8 @@ class UserProfile extends Model {
        'user_id', 
        'avatar', 
        'bio', 
-       'location'
+       'location',
+       'birthday',
     ];
 
     public function user() {
@@ -27,6 +29,10 @@ class UserProfile extends Model {
     public function getId() {
         return $this->id;
     } 
+
+    public function getBirthday() {
+        return Carbon::parse($this->birthday)->format('m/d/Y');
+    }
 
     public function canHaveMoreFavoriteGames() : bool {
         return $this->userProfileFavoriteGames->count() < 9;

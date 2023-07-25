@@ -1,28 +1,23 @@
 <template>
-    <div class="col mx-2">
-        <div class="col">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-auto d-flex justify-content-center mt-4">
-                    <h4>{{ this.gamename }}</h4>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center m-0 p-0">
-                <img class="mb-2" :src="getImageSrc()" :alt="this.gamename" width="142" height="190">
-                <!-- For an unauthenticated user, profileusername is set, and authusername is null -->
-                <button 
-                    v-if="this.profileusername === this.authusername"
-                    @click="isAddMode ? addGame() : deleteGame()"
-                    :class="actionButtonClass" 
-                    class="border-2 border-dark"
-                    style="max-height: 30px; transform: translate(-115%, 15%);"
-                    type="button"
-                >
-                    <i :class="isAddMode ? 'fa fa-plus' : 'fa fa-times'"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
+    <h5>{{ this.gamename }}</h5>
+    <img 
+        class="border border-2 border-dark mb-2" 
+        :src="getImageSrc()" 
+        :alt="this.gamename" 
+        width="142" 
+        height="190"
+    >
+    <!-- For an unauthenticated user, profileusername is set, and authusername is null -->
+    <button 
+        v-if="this.profileusername === this.authusername"
+        @click="isAddMode ? addGame() : deleteGame()"
+        :class="actionButtonClass" 
+        class="border-2 border-dark"
+        style="max-height: 30px; transform: translate(-115%, -250%);"
+        type="button"
+    >
+        <i :class="isAddMode ? 'fa fa-plus' : 'fa fa-times'"></i>
+    </button>
 </template>
 
 <script lang="js">

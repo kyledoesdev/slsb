@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function() {
     /**
      * User Profiles
      */
-    Route::get('/twitch/categories', [App\Http\Controllers\Twitch\TwitchSearchController::class, 'searchForCategory'])->name('favorite_game.search');
+    Route::get('/twitch/categories', [App\Http\Controllers\Twitch\TwitchSearchController::class, 'search'])->name('favorite_game.search');
 
     Route::middleware(['user_profile'])->group(function() {
         Route::get('/{id}/edit', [App\Http\Controllers\UserProfileController::class, 'edit'])->name('profile.edit');

@@ -8,6 +8,7 @@ use App\Models\UserProfile;
 use App\Models\UserType;
 use App\Traits\Follows;
 use App\Traits\Likes;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable {
@@ -41,6 +42,10 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'profile'
+    ];
+
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'followee_user_id', 'follower_user_id')
             ->withTimestamps()
@@ -69,14 +74,6 @@ class User extends Authenticatable {
         return $this->hasMany(Comment::class);
     }
 
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getUserName() {
-        return $this->username;
-    }
-
     public function getFullNameAttribute() : string {
         return $this->first_name . ' ' . $this->last_name;
     }
@@ -90,7 +87,7 @@ class User extends Authenticatable {
     }
 
     public function getUserProfileId() {
-        return $this->profile->getId();
+        return $this->profile->id;
     }
 
     public function isAdmin() : bool {
@@ -109,8 +106,11 @@ class User extends Authenticatable {
         return $comment->commentRatings && $comment->commentRatings->where($status, true)->contains('user_id', $this->id);
     }
 
-    public function updateUserProfile($updates) {
+    public function joinedAt() : string {
+        return Carbon::parse($this->created_at)->tz(timezone())->diffForHumans();
+    }
 
+    public function updateUserProfile($updates) {
         $updates['avatar'] = $this->profile->avatar;
 
         if (isset($updates['avatar_type']) && isset($updates['seed'])) {
@@ -118,8 +118,8 @@ class User extends Authenticatable {
         }
         
         $this->update([
-            'first_name' => $updates['first_name'] ?? $this->first_name,
-            'last_name' => $updates['last_name'] ?? $this->last_name
+            'first_name' => $updates['first_name'],
+            'last_name' => $updates['last_name']
         ]);
 
         $fields = ['birthday', 'location', 'bio', 'avatar', 'background_color'];

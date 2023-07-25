@@ -16,14 +16,6 @@ class Helpers {
         return $username . "'s";
     }
 
-    static function checkForUserBackgroundColor($user) : bool {
-        return
-            $user !== null && 
-            $user->profile &&
-            $user->profile->background_color &&
-            get_route() === 'profile.show';
-    }
-
     static function getAdminTypeIds() : array {
         return [
             UserType::SUPER_ADMIN,

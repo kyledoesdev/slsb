@@ -15,7 +15,7 @@
                             />
                         </a>
                     </div>
-                    <h5 class="mt-1 mx-2 mb-0" id="{{ $comment->id }}">{{ $comment->comment }}</h5>
+                    <p class="mt-1 mx-2 mb-0" id="{{ $comment->id }}">{{ $comment->comment }}</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-start mb-0 mt-3">
                     <small class="mx-1 mb-0 pb-0" title="{{ $comment->formatted_updated_at}}">

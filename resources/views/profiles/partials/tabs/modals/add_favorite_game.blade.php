@@ -6,10 +6,10 @@
 <div id="category-search">
     <categorysearch
         searchroute="{{ route('favorite_game.search') }}"
-        storeroute="{{ route('favorite_game.store', $user->getUserName()) }}"
-        deleteroute="{{ route('favorite_game.delete', auth()->user()->getUserName() )}}"
-        profileusername="{{ $user->getUserName() }}"
-        authusername="{{ auth()->user()->getUserName() }}"
+        storeroute="{{ route('favorite_game.store', $user->username) }}"
+        deleteroute="{{ route('favorite_game.delete', auth()->user()->username )}}"
+        profileusername="{{ $user->username }}"
+        authusername="{{ auth()->user()->username }}"
     >
     </categorysearch>
 </div>
