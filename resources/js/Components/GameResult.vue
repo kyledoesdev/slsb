@@ -9,7 +9,7 @@
     >
     <!-- For an unauthenticated user, profileusername is set, and authusername is null -->
     <button 
-        v-if="this.profileusername === this.authusername"
+        v-if="this.profileusername === this.authUserName"
         @click="isAddMode ? addGame() : deleteGame()"
         :class="actionButtonClass" 
         class="border-2 border-dark"
@@ -23,8 +23,8 @@
 <script lang="js">
 
     export default {
-
-        props: ['storeroute', 'deleteroute', 'gameid', 'gamename', 'gameboxarturl', 'profileusername', 'authusername', 'addMode'],
+        name: 'GameResult',
+        props: ['storeroute', 'deleteroute', 'gameid', 'gamename', 'gameboxarturl', 'profileusername', 'addMode'],
 
         data: function() {
             return {
@@ -39,7 +39,7 @@
             },
 
             addGame() {
-                if (this.profileusername === this.authusername) {
+                if (this.profileusername === this.authUserName) {
                     axios.post(this.storeroute, {
                         'game_id': this.gameid,
                         'game_title': this.gamename,
@@ -67,7 +67,7 @@
             },
 
             deleteGame() {
-                if (this.profileusername === this.authusername) {
+                if (this.profileusername === this.authUserName) {
                     console.log(this.gameid);
                     axios.post(this.deleteroute, {
                         'game_id': this.gameid,
@@ -86,5 +86,4 @@
         },
 
     }
-
 </script>

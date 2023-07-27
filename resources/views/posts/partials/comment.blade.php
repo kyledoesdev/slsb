@@ -39,9 +39,11 @@
                         authuser="{{ auth()->id() }}"
                     />
                 </div>
-                @include('posts.partials.edit_comment_modal', ['comment' => $comment])
-                @include('posts.partials.reply_comment_modal', ['comment' => $comment])
-                @include('posts.partials.delete_comment_form', ['comment' => $comment])
+                @if (auth()->id() == $comment->user_id)
+                    @include('posts.partials.edit_comment_modal', ['comment' => $comment])
+                    @include('posts.partials.reply_comment_modal', ['comment' => $comment])
+                    @include('posts.partials.delete_comment_form', ['comment' => $comment])
+                @endif
             @else
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary border border-1 border-dark pt-1 pb-1" disabled>

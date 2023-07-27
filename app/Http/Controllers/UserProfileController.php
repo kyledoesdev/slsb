@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserProfileRequest;
+use App\Models\PCPart;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateUserProfileRequest;
 
 class UserProfileController extends Controller {
     protected $user;
@@ -21,6 +22,7 @@ class UserProfileController extends Controller {
             'user' => $this->user,
             'featuredPost' => Post::getFeaturedPostForUser($this->user),
             'posts' => Post::getAllPostsForAUser($this->user),
+            'pcParts' => PCPart::$parts,
         ]);
     }
 

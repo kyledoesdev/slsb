@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Model;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model {
-
     protected $table = 'user_profiles';
 
     protected $fillable = [
@@ -22,8 +21,8 @@ class UserProfile extends Model {
         return $this->belongsTo(User::class, 'id', 'profile_id');
     }
 
-    public function userProfileFavoriteGames() {
-        return $this->hasMany(UserProfileFavoriteGame::class, 'profile_id', 'id');
+    public function favoriteGames() {
+        return $this->hasMany(FavoriteGame::class, 'profile_id', 'id');
     }
 
     public function getId() {
@@ -35,6 +34,6 @@ class UserProfile extends Model {
     }
 
     public function canHaveMoreFavoriteGames() : bool {
-        return $this->userProfileFavoriteGames->count() < 9;
+        return $this->favoriteGames->count() < 9;
     }
 }

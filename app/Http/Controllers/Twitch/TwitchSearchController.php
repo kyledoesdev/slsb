@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Twitch;
 
-use App\Models\UserProfileFavoriteGame;
+use App\Models\FavoriteGame;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -34,7 +34,7 @@ class TwitchSearchController {
 
         $data = collect(json_decode($response->getBody())->data);
 
-        $favoriteGames = UserProfileFavoriteGame::query()
+        $favoriteGames = FavoriteGame::query()
             ->where('profile_id', auth()->user()->getUserProfileId())
             ->pluck('game_title');
 

@@ -20,7 +20,7 @@
 <script lang="js">
 
     export default {
-
+        name: 'Like',
         props: ['postId', 'likes', 'count'],
 
         data: function() {

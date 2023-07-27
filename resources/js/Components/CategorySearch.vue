@@ -28,7 +28,6 @@
                                                 :gamename="game.gamename"
                                                 :gameboxarturl="game.gameboxarturl"
                                                 :profileusername="this.profileusername"
-                                                :authusername="this.authusername"
                                                 :storeroute="this.storeroute"
                                                 :deleteroute="this.deleteroute"
                                                 :addMode="true"
@@ -52,8 +51,8 @@
 <script lang="js">
 
     export default {
-
-        props: ['searchroute', 'storeroute', 'deleteroute', 'profileusername', 'authusername'],
+        name: 'CategorySearch',
+        props: ['searchroute', 'storeroute', 'deleteroute', 'profileusername'],
 
         data: function() {
             return {
@@ -108,5 +107,4 @@
             });
         }
     }
-
 </script>

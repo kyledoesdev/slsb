@@ -2,19 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Model;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model {
-    use HasFactory;
-    use SoftDeletes;
-
     protected $table = 'comments';
 
     protected $fillable = [
@@ -51,13 +45,5 @@ class Comment extends Model {
 
     public function isReply() : bool {
         return $this->is_reply;
-    }
-
-    public function getFormattedCreatedAtAttribute() : string {
-        return Carbon::parse($this->created_at)->tz(timezone())->format('M-d-Y h:i:s T');
-    }
-
-    public function getFormattedUpdatedAtAttribute() : string {
-        return Carbon::parse($this->updated_at)->tz(timezone())->format('M-d-Y h:i:s T');
     }
 }

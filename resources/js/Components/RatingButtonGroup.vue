@@ -26,6 +26,7 @@
             <button class="btn btn-sm btn-danger btn-outline-dark delete-comment" 
                 :value="id" 
                 :form="deleteCommentModalString"
+                @click="confirmDelete"
                 v-if="this.authuser === this.commentuser"
             >
                 <i class="fa-solid fa-trash"></i>
@@ -36,6 +37,7 @@
 
 <script>
     export default {
+        name: 'RatingButtonGroup',
         props: ['id', 'commentuser', 'authuser', 'vote_count', 'hasrating', 'uprating', 'downrating'],
 
         data: function() {
@@ -110,5 +112,4 @@
             }
         },
     }
-
 </script>

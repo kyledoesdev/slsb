@@ -46,12 +46,12 @@
     import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
     export default {
-
-        props: ['authid', 'storeroute'],
+        name: 'Dashboard',
+        props: ['storeroute'],
 
         data: function() {
             return {
-                user_id: this.authid,
+                user_id: this.authId,
                 editor: null,
                 title: "",
                 isFeatured: null

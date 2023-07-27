@@ -7,7 +7,6 @@
                 @if (in_array(auth()->user()->userType->id, Helpers::getAdminTypeIds()))
                     <div>
                         <dashboard 
-                            authid="{{ auth()->id() }}"
                             storeroute="{{ route('post.store') }}"
                         />
                     </div>

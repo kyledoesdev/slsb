@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 
-class UserProfileFavoriteGame extends Model {
-    use SoftDeletes;
+class FavoriteGame extends Model {
 
     protected $table = 'user_profile_favorite_games';
 

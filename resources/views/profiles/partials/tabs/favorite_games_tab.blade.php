@@ -9,12 +9,11 @@
         </div>
         <div class="row">
             <favoritegamestab
-                :games="{{ $user->profile->userProfileFavoriteGames }}"
+                :games="{{ $user->profile->favoriteGames }}"
                 profileusername="{{ $user->username }}"
                 @if (auth()->hasUser())
                     storeroute="{{ route('favorite_game.store', $user->username) }}"
                     deleteroute="{{ route('favorite_game.delete', auth()->user()->username )}}"
-                    authusername="{{ auth()->user()->username }}"
                 @endif
             >
             </favoritegamestab>

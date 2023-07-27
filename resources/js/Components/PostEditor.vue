@@ -41,12 +41,12 @@
     import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
     export default {
-
-        props: ['authid', 'postid', 'title', 'content', 'isFeatured', 'updateroute'],
+        name: 'PostEditor',
+        props: ['postid', 'title', 'content', 'isFeatured', 'updateroute'],
 
         data: function() {
             return {
-                user_id: this.authid,
+                user_id: this.authId,
                 title: this.title,
                 body: this.content,
                 isFeaturePost: this.isFeatured,

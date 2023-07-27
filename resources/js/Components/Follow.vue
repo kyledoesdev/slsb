@@ -1,17 +1,15 @@
 <template>
-
     <section>
         <button id="follow-button" class="btn btn-primary rounded-pill border border-2 border-warning" @click="updateFollowing">
             <i :class="followingButtonText"></i>
         </button>
     </section>
-
 </template>
 
 <script lang="js">
 
     export default {
-
+        name: 'Follow',
         props: ['userId', 'state', 'followersCount', 'followingCount'],
 
         data: function() {

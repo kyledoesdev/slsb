@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PCPart;
 use Illuminate\Support\Facades\Route;
 
 function get_route() : string {
@@ -30,4 +31,8 @@ function getBgColor($user) : bool {
         $user->profile &&
         $user->profile->background_color &&
         get_route() === 'profile.show';
+}
+
+function getPCPartImg(int $partId) : string {
+    return '/img/' . PCPart::getPart($partId) . '.png';
 }

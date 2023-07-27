@@ -10,7 +10,7 @@
 
 <script>
     export default {
-
+        name: 'LikeCounter',
         props: ['likeCount'],
 
         data: function() {

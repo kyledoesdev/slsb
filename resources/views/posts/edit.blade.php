@@ -27,7 +27,6 @@
                     </div>
                     <div>
                         <posteditor 
-                            authid="{{ auth()->id() }}"
                             postid="{{ $post->id }}"
                             title="{{ $post->title }}"
                             isFeatured="{{ $post->is_featured }}"

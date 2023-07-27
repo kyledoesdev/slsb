@@ -16,13 +16,8 @@ class UserProfileMiddleware {
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next) {
-        $UserId = User::query()
-            ->where('username', $request->route('id'))
-            ->first()
-            ->id;
-            
-        abort_if($UserId != auth()->id(), 403);
+    public function handle(Request $request, Closure $next) {            
+        abort_if(auth()->user()->username != $request->route('id'), 403);
         
         return $next($request);
     }

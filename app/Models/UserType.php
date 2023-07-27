@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class UserType extends Model {
-    use HasFactory;
-
     const SUPER_ADMIN = 1;
     const ADMIN = 2;
     const BASIC = 3;

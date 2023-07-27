@@ -23,7 +23,7 @@
 
 <script lang="js">
     export default {
-
+        name: 'FollowCounter',
         props: ['followersCount', 'followingCount', 'followersList', 'followingList'],
 
         data: function() {

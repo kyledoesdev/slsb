@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use App\Models\UserProfileFavoriteGame;
+use App\Models\FavoriteGame;
 
 class FavoriteGameController extends Controller {
-    protected $client;
     protected $userProfile;
 
     public function __construct(Request $request) {
-        $this->client = new Client();
-
         $this->userProfile = User::query()
             ->where('username', $request->route('id'))
             ->firstOrFail()
@@ -24,16 +21,16 @@ class FavoriteGameController extends Controller {
         $gameId = $request->input('game_id');
 
         if ($this->userProfile->canHaveMoreFavoriteGames()) {
-            $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($gameId, $this->userProfile->id, true);
+            $favoriteGame = FavoriteGame::getSpecificProfileFavoriteGame($gameId, $this->userProfile->id, true);
 
             if ($favoriteGame) {
                 $favoriteGame->restore();
             } else {
-                $favoriteGame = UserProfileFavoriteGame::createProfileFavoriteGame($request->all());
+                $favoriteGame = FavoriteGame::createProfileFavoriteGame($request->all());
             }
 
             return response()->json([
-               'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
+               'games' => FavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
             ]);
         }
 
@@ -45,14 +42,14 @@ class FavoriteGameController extends Controller {
     }
 
     public function delete(Request $request) {
-        $favoriteGame = UserProfileFavoriteGame::getSpecificProfileFavoriteGame($request->input('game_id'), $this->userProfile->id);
+        $favoriteGame = FavoriteGame::getSpecificProfileFavoriteGame($request->input('game_id'), $this->userProfile->id);
 
         if ($favoriteGame) {
             $favoriteGame->delete();
         }
 
         return response()->json([
-            'games' => UserProfileFavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
+            'games' => FavoriteGame::getAllProfileFavoriteGames($this->userProfile->id)
         ]);
     }
 

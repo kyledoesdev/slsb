@@ -17,13 +17,8 @@ class PostsMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        $PostsUserId = Post::query()
-            ->where('id', $request->route('id'))
-            ->first()
-            ->user_id;
-        
-        abort_if($PostsUserId != auth()->id(), 403);
+    {        
+        abort_if(Post::find($request->route('id'))->user_id != auth()->id(), 403);
 
         return $next($request);
     }

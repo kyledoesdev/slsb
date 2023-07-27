@@ -5,7 +5,6 @@
             :gamename="game.game_title"
             :gameboxarturl="game.box_art_url"
             :profileusername="this.profileusername"
-            :authusername="this.authusername"
             :storeroute="this.storeroute"
             :deleteroute="this.deleteroute"
             :addMode="false"
@@ -15,10 +14,9 @@
 </template>
 
 <script lang="js">
-
     export default {
-
-        props: ['games', 'storeroute', 'deleteroute', 'profileusername', 'authusername'],
+        name: 'FavoriteGames',
+        props: ['games', 'storeroute', 'deleteroute', 'profileusername'],
 
         data: function() {
             return {
@@ -35,7 +33,5 @@
                 this.favorites = data;
             });
         }
-
     }
-
 </script>
