@@ -51,17 +51,16 @@
 
         data: function() {
             return {
-                user_id: this.authId,
                 editor: null,
                 title: "",
-                isFeatured: null
+                isFeatured: false
             }
         },
 
         methods: {
             submitPost() {
                 axios.post(this.storeroute, {
-                    'user_id': this.user_id,
+                    'user_id': this.authId,
                     'title': this.title,
                     'body': this.editor.getMarkdown(),
                     'is_featured': this.isFeatured

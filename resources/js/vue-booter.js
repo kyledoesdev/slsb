@@ -1,21 +1,30 @@
 import { createApp } from 'vue';
 import mitt from 'mitt';
 
+//Global mixins
 import flash from './Modules/flash';
 import globals from './Modules/globals';
 
-import Follow  from './Components/Follow.vue';
-import FollowCounter  from './Components/FollowCounter.vue';
-import Like from './Components/Like.vue';
-import LikeCounter from './Components/LikeCounter.vue';
-import CategorySearch from './Components/CategorySearch.vue';
-import GameResult from './Components/GameResult.vue';
-import FavoriteGamesTab from './Components/FavoriteGamesTab.vue';
-import RatingButtonGroup from './Components/RatingButtonGroup.vue';
+//follows
+import Follow from './Components/Follows/Follow.vue';
+import FollowCounter  from './Components/Follows/FollowCounter.vue';
+
+//likes
+import Like from './Components/Likes/Like.vue';
+import LikeCounter from './Components/Likes/LikeCounter.vue';
+
+//favorite games
+import CategorySearch from './Components/FavoriteGame/CategorySearch.vue';
+import GameResult from './Components/FavoriteGame/GameResult.vue';
+import FavoriteGamesTab from './Components/FavoriteGame/FavoriteGamesTab.vue';
+
+//pc specs
+import PCSpecs from './Components/PCSpecs/PCSpecs.vue';
+import PCPart from './Components/PCSpecs/PCPart.vue';
+
+import RatingButtonGroup from './Components/RatingBar.vue';
 import Dashboard from './Components/Dashboard.vue';
 import PostEditor from './Components/PostEditor.vue';
-import PCSpecs from './Components/PCSpecs.vue';
-import PCPart from './Components/PCPart.vue';
 
 const emitter = mitt();
 const app = createApp({});
@@ -33,7 +42,7 @@ app.component('followcounter', FollowCounter);
 app.component('categorysearch', CategorySearch);
 app.component('gameresult', GameResult);
 app.component('favoritegamestab', FavoriteGamesTab);
-app.component('ratingbtngroup', RatingButtonGroup);
+app.component('ratingbar', RatingButtonGroup);
 app.component('dashboard', Dashboard);
 app.component('posteditor', PostEditor);
 app.component('pcspecs', PCSpecs);

@@ -37,7 +37,7 @@ class PostRule implements Rule {
             ]);
         }
 
-        return $value != null;
+        return true;
     }
 
     /**
@@ -46,6 +46,6 @@ class PostRule implements Rule {
      * @return string
      */
     public function message() {
-        return 'The validation error message.';
+        return 'The is featured box can not be null';
     }
 }

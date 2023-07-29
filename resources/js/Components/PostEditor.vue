@@ -46,7 +46,6 @@
 
         data: function() {
             return {
-                user_id: this.authId,
                 title: this.title,
                 body: this.content,
                 isFeaturePost: this.isFeatured,
@@ -58,7 +57,7 @@
         methods: {
             submitPost() {
                 axios.post(this.updateroute, {
-                    'user_id': this.user_id,
+                    'user_id': this.authId,
                     'post_id': this.post_id,
                     'title': this.title,
                     'body': this.editor.getMarkdown(),

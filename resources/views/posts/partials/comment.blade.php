@@ -29,7 +29,7 @@
         <div class="col-md-6">
             @if(auth()->hasUser())
                 <div class="mb-2">
-                    <ratingbtngroup
+                    <ratingbar
                         id="{{ $comment->id }}"
                         vote_count="{{ count($comment->commentRatings->where('rating_type', 'up')) }}"
                         hasrating="{{ auth()->user()->hasRatingForComment($comment) }}"
