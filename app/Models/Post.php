@@ -89,7 +89,7 @@ class Post extends Model {
         $this->update([
             'title' => $updates['title'],
             'body' => $updates['body'] === null ? '' : $updates['body'],
-            'is_featured' => array_key_exists('is_featured', $updates) && $updates['is_featured'] == 1 ? true : false
+            'is_featured' => array_key_exists('is_featured', $updates) && $updates['is_featured']
         ]);
     }
 

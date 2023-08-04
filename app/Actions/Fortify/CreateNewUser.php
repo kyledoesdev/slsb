@@ -2,8 +2,10 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\PCPart;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\UserProfilePCPart;
 use App\Models\UserType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -40,7 +42,7 @@ class CreateNewUser implements CreatesNewUsers {
             'password' => Hash::make($input['password']),
             'profile_id' => UserProfile::create([
                 'avatar' => "https://avatars.dicebear.com/api/identicon/" . $input['username'] . ".svg"
-            ])->pluck('id')->first(),
+            ])->pluck('id'),
             'user_type_id' => UserType::BASIC, //Default all users to Basic. Only admin users can make other admins
             'timezone' => getDeviceTimezone()
         ]);
@@ -48,6 +50,9 @@ class CreateNewUser implements CreatesNewUsers {
         $profile = UserProfile::where('id', $user->profile_id)->first();
         $profile->user_id = $user->id;
         $profile->save();
+
+        //build empty pc part list for profile
+        buildPCPartsForProfile($user->profile_id);
 
         return $user;
     }

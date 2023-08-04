@@ -14,6 +14,7 @@ class UserProfileController extends Controller {
     public function __construct(Request $request) {
         $this->user = User::query()
             ->where('username', $request->route('id'))
+            ->with('profile.pcParts')
             ->firstOrFail();
     }
 
@@ -22,7 +23,7 @@ class UserProfileController extends Controller {
             'user' => $this->user,
             'featuredPost' => Post::getFeaturedPostForUser($this->user),
             'posts' => Post::getAllPostsForAUser($this->user),
-            'pcParts' => PCPart::$parts,
+            'profileParts' => $this->user->profile->pcParts
         ]);
     }
 

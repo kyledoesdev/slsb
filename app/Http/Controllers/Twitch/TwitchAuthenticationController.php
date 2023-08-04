@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Twitch;
 
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DisconnectFromTwitchRequest;
 use App\Models\User;
 use App\Models\UserProfile;
-use App\Http\Controllers\Controller;
+use App\Models\UserType;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Requests\DisconnectFromTwitchRequest;
 
 class TwitchAuthenticationController extends Controller {
 
@@ -63,6 +64,9 @@ class TwitchAuthenticationController extends Controller {
             $user->profile_id = $profile->id;
             $user->save();
         }
+
+        //build empty pc part list for profile
+        buildPCPartsForProfile($user->profile_id);
 
         Auth::login($user);
         return redirect('home');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\PCPart;
+use App\Models\UserProfilePCPart;
 use Illuminate\Support\Facades\Route;
 
 function get_route() : string {
@@ -33,6 +34,12 @@ function getBgColor($user) : bool {
         get_route() === 'profile.show';
 }
 
-function getPCPartImg(int $partId) : string {
-    return '/img/' . PCPart::getPart($partId) . '.png';
+function buildPCPartsForProfile($profileId) : void {
+    //build default empty pc part list for profile
+    foreach(PCPart::all() as $part) {
+        UserProfilePCPart::create([
+            'profile_id' => $profileId,
+            'pc_part_id' => $part->id
+        ]);
+    }
 }

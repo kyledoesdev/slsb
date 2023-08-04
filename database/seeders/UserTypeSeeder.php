@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\UserType;
-use App\Models\UserProfile;
+use App\Models\PCPart;
 use App\Models\User;
+use App\Models\UserProfile;
+use App\Models\UserProfilePCPart;
+use App\Models\UserType;
+use Illuminate\Database\Seeder;
 
 class UserTypeSeeder extends Seeder {
 
@@ -22,10 +24,21 @@ class UserTypeSeeder extends Seeder {
             'profile_id' => UserProfile::create([
                 'avatar' => "https://avatars.dicebear.com/api/identicon/" . 'Test_Admin' . ".svg"
             ])->pluck('id')->first(),
-            'user_type_id' => UserType::SUPER_ADMIN
+            'user_type_id' => UserType::SUPER_ADMIN,
+            'timezone' => 'America/New_York'
         ]);
 
-        UserProfile::where('id', $user->profile_id)
-            ->update(['user_id' => $user->id]);
+        $profile = UserProfile::query()
+            ->where('id', $user->profile_id)
+            ->first();
+
+        $profile->user_id = $user->id;
+        $profile->save();
+
+        $user->touch();
+        $profile->touch();
+
+        //build empty pc part list for profile
+        buildPCPartsForProfile($user->profile_id);
     }
 }

@@ -1,28 +1,37 @@
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 export default {
     methods: {
-        flash(title, messgae, level = 'success') {
-            return swal(title, messgae, level);
+        flash(title, text, icon = 'success') {
+            return this.swal().fire({
+                title: title, 
+                text: text, 
+                icon: icon
+            });
         },
 
-        doubleCheck(title, extraText = null, icon = 'warning', showCancelButton = true, confirmButtonText = 'Yes, delete it!') {
-            swal({
+        check(title, message = null, icon = 'info', confirmButtonText = 'Confirm', cancelButtonText = 'Cancel') {
+            return this.swal().fire({
                 title: title,
-                text: extraText,
+                text: message,
                 icon: icon,
-                showCancelButton: showCancelButton,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: confirmButtonText
+                showCancelButton: true,
+                confirmButtonText: confirmButtonText,
+                cancelButtonText: cancelButtonText,
+                reverseButtons: true
             }).then((result) => {
-                if (result.isConfirmed) {
-                  flash('Deleted!', 'Deleted successfully.')
-                  return true;
-                }
+                return result.isConfirmed;
+            });
+        },
 
-                return false;
+        swal() {
+            return Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success p-2 m-2',
+                    cancelButton: 'btn btn-danger p-2 m-2',
+                },
+                buttonsStyling: false
             });
         }
-    }
+    },
 }

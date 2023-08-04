@@ -26,10 +26,10 @@
                         </div>
                     </div>
                     <div>
-                        <posteditor 
+                        <editpost 
                             postid="{{ $post->id }}"
                             title="{{ $post->title }}"
-                            isFeatured="{{ $post->is_featured }}"
+                            isFeatured="{{ true }}"
                             content="{{ $post->body }}"
                             updateroute="{{ route('post.update', $post->id) }}"
                         />

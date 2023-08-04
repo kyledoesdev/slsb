@@ -14,7 +14,7 @@ class AlterUsersTable extends Migration {
             $table->string('last_name')->after('first_name')->nullable();
             $table->unsignedBigInteger('profile_id')->after('password')->nullable();
 
-            $table->foreign('profile_id')->references('id')->on('user_profiles');
+            $table->foreign('profile_id')->references('id')->on('user_profiles')->onDelete('CASCADE');
         });
     }
 

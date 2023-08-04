@@ -5,6 +5,9 @@ import mitt from 'mitt';
 import flash from './Modules/flash';
 import globals from './Modules/globals';
 
+//Toast
+import Toast from './Components/Global/Toast.vue';
+
 //follows
 import Follow from './Components/Follows/Follow.vue';
 import FollowCounter  from './Components/Follows/FollowCounter.vue';
@@ -22,9 +25,12 @@ import FavoriteGamesTab from './Components/FavoriteGame/FavoriteGamesTab.vue';
 import PCSpecs from './Components/PCSpecs/PCSpecs.vue';
 import PCPart from './Components/PCSpecs/PCPart.vue';
 
+//posts
+import CreatePost from './Components/Posts/CreatePost.vue';
+import EditPost from './Components/Posts/EditPost.vue';
+
 import RatingButtonGroup from './Components/RatingBar.vue';
 import Dashboard from './Components/Dashboard.vue';
-import PostEditor from './Components/PostEditor.vue';
 
 const emitter = mitt();
 const app = createApp({});
@@ -35,6 +41,7 @@ app.mixin(flash);
 app.mixin(globals);
 
 //Register components
+app.component('toast', Toast);
 app.component('like', Like);
 app.component('likecounter', LikeCounter);
 app.component('follow', Follow);
@@ -44,7 +51,8 @@ app.component('gameresult', GameResult);
 app.component('favoritegamestab', FavoriteGamesTab);
 app.component('ratingbar', RatingButtonGroup);
 app.component('dashboard', Dashboard);
-app.component('posteditor', PostEditor);
+app.component('createpost', CreatePost);
+app.component('editpost', EditPost);
 app.component('pcspecs', PCSpecs);
 app.component('pcpart', PCPart);
 

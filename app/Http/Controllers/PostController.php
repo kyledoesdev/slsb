@@ -58,11 +58,7 @@ class PostController extends Controller {
         $this->post->updatePost($request->all());
 
         return response()->json([
-            'redirect' => route('post.show', [
-                'id' => $this->post->id,
-                'post' => $this->post,
-                'success' => 'Post succesfully updated.',
-            ])
+            'message' => 'Post succesfully updated.',
         ]);
     }
 

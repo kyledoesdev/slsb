@@ -13,13 +13,13 @@
         </div>
         <section class="px-4 mb-2">
             <div class="flex flex-col space-y-2 pb-2">
-                <div id="editor"></div>
+                <toast ref="toast" :content="this.content"></toast>
             </div>
 
             <div class="row mt-4">
                 <div class="col-sm-2">
                     <label for="">Featured?</label>
-                    <input type="checkbox" class="form-check-input mx-2" v-model="this.isFeaturePost" @click="isFeaturedWarning">
+                    <input type="checkbox" class="form-check-input mx-2" v-model="this.checked" @click="isFeaturedWarning">
                 </div>
                 <div class="col d-flex justify-content-end">
                     <button 
@@ -36,20 +36,39 @@
 </template>
 
 <script>
-    import Editor from '@toast-ui/editor';
-    import "@toast-ui/editor/dist/toastui-editor.css";
-    import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
+    import Toast from '../Global/Toast.vue';
 
     export default {
-        name: 'PostEditor',
-        props: ['postid', 'title', 'content', 'isFeatured', 'updateroute'],
+        components: { Toast },
+        name: 'editpost',
+        props: {
+            postid: {
+                type: Number,
+                required: true,
+            },
+            title: {
+                type: String,
+                required: true,
+            },
+            content: {
+                type: String,
+                required: true,
+            },
+            isFeatured: {
+                type: Boolean,
+                required: true,
+            },
+            updateroute: {
+                type: String,
+                required: true,
+            },
+        },
 
         data: function() {
             return {
                 title: this.title,
                 body: this.content,
-                isFeaturePost: this.isFeatured,
-                editor: null,
+                checked: this.isFeatured,
                 post_id: this.postid,
             }
         },
@@ -60,32 +79,31 @@
                     'user_id': this.authId,
                     'post_id': this.post_id,
                     'title': this.title,
-                    'body': this.editor.getMarkdown(),
-                    'is_featured': this.isFeaturePost
+                    'body': this.$refs.toast.getBody(),
+                    'is_featured': this.checked
                 })
                 .then(response => {
-                    window.location.href = response.data.redirect
+                    if (response.data && response.data.message) {
+                        this.flash("Success", response.data.message);
+                    }
                 })
                 .catch(error => {
                     console.error(error);
                 });
             },
 
-            isFeaturedWarning() {
-                //todo condtionalize for if checked already
-                alert("This will alter the pinned post to your profile.");
-            }
-
+            async isFeaturedWarning() {
+                if (!this.checked) {
+                    const confirmed = await this.check(
+                        "Feature this post?", 
+                        "Are you sure you want to feature this post? It will unfeature any currently featured post."
+                    );
+                    
+                    if (!confirmed) {
+                        this.checked = false;
+                    }
+                }
+            },
         },
-
-        mounted() {
-            this.editor = new Editor({
-                el: document.querySelector("#editor"),
-                height: "500px",
-                initialEditType: "markdown",
-                theme: 'dark',
-                initialValue: this.body
-            });
-        }
     };
 </script>
