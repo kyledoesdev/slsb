@@ -46,13 +46,20 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/{id}/update', [App\Http\Controllers\UserProfileController::class, 'update'])->name('profile.update');
         Route::get('/{id}/settings', [App\Http\Controllers\UserAccountSettingsController::class, 'index'])->name('user.settings');
         Route::post('/{id}/settings/unlink_twitch', [App\Http\Controllers\Twitch\TwitchAuthenticationController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
-    
-        /**
-         * Favorite Game Tab
-         */
-        Route::post('/{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
-        Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
     });
+
+
+    /**
+     * Favorite Game Tab
+     */
+    Route::post('/{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
+    Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
+    
+    /**
+     * PC Parts
+     */
+    Route::post('/pc_parts/store', [App\Http\Controllers\PCPartsController::class, 'store'])->name('pc_parts.store');
+    Route::post('/pc_parts/update', [App\Http\Controllers\PCPartsController::class, 'update'])->name('pc_parts.update');
 
     /**
      * Follows + Likes

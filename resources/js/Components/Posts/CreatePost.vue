@@ -64,7 +64,11 @@
                     'is_featured': this.checked
                 })
                 .then(response => {
-                    window.location.href = response.data.redirect
+                    this.flashWithRedirect(
+                        "Post Created Successfully!",
+                        "success",
+                        response.data.redirect,
+                    );
                 })
                 .catch(error => {
                     console.error(error);

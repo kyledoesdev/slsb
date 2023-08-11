@@ -21,7 +21,6 @@
 </template>
 
 <script lang="js">
-
     export default {
         name: 'GameResult',
         props: ['storeroute', 'deleteroute', 'gameid', 'gamename', 'gameboxarturl', 'profileusername', 'addMode'],

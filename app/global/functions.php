@@ -33,13 +33,3 @@ function getBgColor($user) : bool {
         $user->profile->background_color &&
         get_route() === 'profile.show';
 }
-
-function buildPCPartsForProfile($profileId) : void {
-    //build default empty pc part list for profile
-    foreach(PCPart::all() as $part) {
-        UserProfilePCPart::create([
-            'profile_id' => $profileId,
-            'pc_part_id' => $part->id
-        ]);
-    }
-}

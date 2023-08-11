@@ -10,6 +10,15 @@ export default {
             });
         },
 
+        flashWithRedirect(title, icon = 'success', redirectLink, buttonText = 'View here!', buttonClass = 'btn btn-success') {
+            return this.swal().fire({
+                title: title, 
+                icon: icon,
+                html: '<a class="'+buttonClass+'" href="'+redirectLink+'">'+buttonText+'</a>',
+                showConfirmButton: false
+            });
+        },
+
         check(title, message = null, icon = 'info', confirmButtonText = 'Confirm', cancelButtonText = 'Cancel') {
             return this.swal().fire({
                 title: title,

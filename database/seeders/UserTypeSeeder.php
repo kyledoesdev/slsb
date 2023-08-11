@@ -37,8 +37,5 @@ class UserTypeSeeder extends Seeder {
 
         $user->touch();
         $profile->touch();
-
-        //build empty pc part list for profile
-        buildPCPartsForProfile($user->profile_id);
     }
 }

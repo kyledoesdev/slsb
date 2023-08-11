@@ -26,11 +26,7 @@ class PostController extends Controller {
         ]);
         
         return response()->json([
-            'redirect' => route('post.show', [
-                'id' => $post->id,
-                'post' => $post,
-                'success' => 'New Post succesfully created.',
-            ])
+            'redirect' => route('post.show', ['id' => $post->id])
         ]);
     }
 

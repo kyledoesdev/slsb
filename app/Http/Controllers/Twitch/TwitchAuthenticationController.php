@@ -25,7 +25,8 @@ class TwitchAuthenticationController extends Controller {
         //try to find a user with email from socialite user exists but they are not a twitch user
         $user = User::query()
             ->where('email', $twitchUser->email)
-            ->where('external_id', null);
+            ->where('external_id', null)
+            ->with(['profile', 'profile.pcParts']);
 
         //if that user exists, then they are trying to connect their account to twitch
         if ($user->exists()) {
@@ -64,10 +65,7 @@ class TwitchAuthenticationController extends Controller {
             $user->profile_id = $profile->id;
             $user->save();
         }
-
-        //build empty pc part list for profile
-        buildPCPartsForProfile($user->profile_id);
-
+        
         Auth::login($user);
         return redirect('home');
     }

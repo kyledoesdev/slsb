@@ -23,7 +23,8 @@ class UserProfileController extends Controller {
             'user' => $this->user,
             'featuredPost' => Post::getFeaturedPostForUser($this->user),
             'posts' => Post::getAllPostsForAUser($this->user),
-            'profileParts' => $this->user->profile->pcParts
+            'profileParts' => $this->user->profile->pcParts,
+            'partsList' => PCPart::select('id', 'name')->get()
         ]);
     }
 

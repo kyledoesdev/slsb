@@ -50,10 +50,7 @@ class CreateNewUser implements CreatesNewUsers {
         $profile = UserProfile::where('id', $user->profile_id)->first();
         $profile->user_id = $user->id;
         $profile->save();
-
-        //build empty pc part list for profile
-        buildPCPartsForProfile($user->profile_id);
-
+        
         return $user;
     }
 }
