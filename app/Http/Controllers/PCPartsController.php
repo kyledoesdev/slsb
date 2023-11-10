@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PCParts\DeletePCPartRequest;
 use App\Http\Requests\PCParts\StorePCPartRequest;
 use App\Http\Requests\PCParts\UpdatePCPartRequest;
 use App\Models\UserProfile;
@@ -20,17 +21,37 @@ class PCPartsController extends Controller {
 
     public function update(UpdatePCPartRequest $request) : JsonResponse {
         $parts = collect($request->parts);
-
-        UserProfilePCPart::query()
-            ->where('profile_id', UserProfile::findOrFail($request->profile_id))
+        $userProfile = UserProfile::findOrFail($request->profile_id);
+        
+        $parts = UserProfilePCPart::query()
+            ->where('profile_id', $userProfile->id)
             ->whereIn('id', $parts->pluck('id'))
             ->get()
-            ->each(fn($part) => $part->update([
-                'name' => $parts->where('id', $part->id)->first()['name']
-            ]));
+            ->each(function($part) use ($parts) {
+                $partName = $parts->where('id', $part->id)->first()['name'];
+
+                if ($partName != $part->name) {
+                    $part->update([
+                        'name' => $partName
+                    ]);
+                }
+            });
         
         return response()->json([
-            'parts' => $this->userProfile->pcParts
+            'message' => 'Part successfully updated.',
+            'parts' => $parts
+        ], 200);
+    }
+
+    public function delete(DeletePCPartRequest $request) : JsonResponse {
+        UserProfilePCPart::query()
+            ->where('id', $request->id)
+            ->where('profile_id', $request->profile_id)
+            ->delete();
+
+        return response()->json([
+            'message' => 'Part successfully deleted.',
+            'parts' => UserProfile::find($request->profile_id)->pcParts
         ], 200);
     }
 

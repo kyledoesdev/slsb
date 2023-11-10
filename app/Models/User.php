@@ -130,4 +130,13 @@ class User extends Authenticatable {
 
         $this->profile->save();
     }
+
+    public function getGlobalData() : string {
+        return json_encode([
+            'id' => $this->id,
+            'username' => $this->username,
+            'profile_id' => $this->profile_id,
+            'timezone' => $this->timezone,
+        ]);
+    }
 }

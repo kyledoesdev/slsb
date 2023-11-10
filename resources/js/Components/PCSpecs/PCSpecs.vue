@@ -1,5 +1,5 @@
 <template>
-    <div class="row" v-if="this.profileusername === this.authUserName">
+    <div class="row" v-if="this.profileusername === this.authUser.username">
         <div class="col d-flex justify-content-end mb-3">
             <button class="btn btn-primary border border-dark border-2" data-bs-toggle="modal" data-bs-target="#editPartsModal">
                 <i class="fa fa-pencil"></i> Parts List
@@ -37,16 +37,17 @@
                         <div class="col-sm-4 mt-2">
                             <button 
                                 type="button" 
-                                class="btn btn-primary border border-2 border-dark" 
+                                class="btn btn-primary border border-2 border-dark"
+                                :disabled="canNotAddPart"
                                 @click="saveNewPart"
                             >
-                                Add part
+                                <i class="fa fa-plus"></i> Add part
                             </button>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="row">
+                        <div class="row" v-if="profileHasParts">
                             <h3>Edit your existing parts.</h3>
                         </div>
                         <div class="col-auto mt-4 mb-4 pb-2" v-for="part in this.profileSpecs" :key="part.id">
@@ -57,6 +58,8 @@
                                 :imgpath="part.pc_part.img_path"
                                 :partname="part.pc_part.name"
                                 :iseditable="true"
+                                :profileusername="this.profileusername"
+                                :profileid="this.profileid"
                             >
                             </pcpart>
                         </div>
@@ -65,7 +68,7 @@
                 <div class="modal-footer">
                     <div class="btn-group border border-2 border-dark">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="updateParts">Save</button>
+                        <button type="button" class="btn btn-primary text-bold" @click="updateParts">Update & Save</button>
                     </div>
                 </div>
             </div>
@@ -74,7 +77,7 @@
 
     <!-- display profile parts -->
     <div class="row">
-        <div v-if="this.profileparts.length > 0">
+        <div v-if="profileHasParts">
             <div class="col-auto mb-4 pb-2" v-for="part in this.profileSpecs" :key="part.id">
                 <pcpart
                     :partid="part.id"
@@ -86,7 +89,7 @@
                 </pcpart>
             </div>
         </div>
-        <div class="col-auto" v-else-if="this.profileSpecs.length <= 0 && this.authUserName != this.profileusername">
+        <div class="col-auto" v-else-if="this.profileSpecs.length <= 0 && this.authUser.username != this.profileusername">
             <span>{{ this.profileusername }} has not configured their PC Specs.</span>
         </div>
     </div>
@@ -110,52 +113,52 @@
 
         methods: {
             saveNewPart() {
-                if (this.authUserName === this.profileusername) {
+                if (this.authUser.username === this.profileusername) {
                     axios.post('/pc_parts/store', {
                         'profile_id': this.profileid, 
                         'pc_part_id': this.newPartId,
                         'name': this.newPartName,
                     })
                     .then(response => {
-                        if (response.data?.parts && response.data?.message) {
-                            this.profileSpecs = response.data.parts;
-                            this.flash("Success", response.data.message);
+                        const data = response.data;
+
+                        if (data && data.parts && data.message) {
+                            this.profileSpecs = data.parts;
+                            this.flash("Success", data.message);
                         }
                     })
                     .catch(error => {
                         console.error(error);
-                        this.flash(
-                            "Something went wrong!", 
-                            "Sorry, something went wrong trying to add your new PC part. Please try again later", 
-                            'error'
-                        );
+                        this.flashDefaultError();
                     });
                 }
             },
 
             updateParts() {
                 let input = [];
-                for (const part in this.profileparts) {
+                for (const part in this.profileSpecs) {
                     input.push({
-                        'id': this.profileparts[part].id,
-                        'name': this.$refs["part-"+this.profileparts[part].id][0].getEnteredName()
+                        'id': this.profileSpecs[part].id,
+                        'name': this.$refs["part-"+this.profileSpecs[part].id][0].getEnteredName()
                     });
                 }
 
-                if (this.authUserName === this.profileusername) {
+                if (this.authUser.username === this.profileusername) {
                     axios.post('/pc_parts/update', {
                         'profile_id': this.profileid,
                         'parts': input 
                     })
                     .then(response => {
-                        if (response.data && response.data.parts) {                            
-                            this.profileparts = response.data.parts;
-                            this.flash("Success", "Successfully updated your PC Parts");
+                        const data = response.data;
+
+                        if (data && data.parts && data.message) {                         
+                            this.profileSpecs = data.parts;
+                            this.flash("Success", data.message);
                         }
                     })
                     .catch(error => {
                         console.error(error);
-                        this.flash("Error", "Sorry, we messed something up. Try again later!", "error");
+                        this.flashDefaultError();
                     })
                 }
             },
@@ -164,5 +167,21 @@
                 return "part-" + partId
             }
         },
+
+        computed: {
+            profileHasParts() {
+                return this.profileSpecs.length > 0;
+            },
+
+            canNotAddPart() {
+                return this.newPartName == "" || this.newPartId == "";
+            }
+        },
+
+        created() {
+            this.emitter.on('partsupdated', (data) => {
+                this.profileSpecs = data;
+            });
+        }
     }
 </script>

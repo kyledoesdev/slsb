@@ -1,5 +1,5 @@
 <template>
-    <h5>{{ this.gamename }}</h5>
+    <!-- <h5>{{ this.gamename }}</h5> -->
     <img 
         class="border border-2 border-dark mb-2" 
         :src="getImageSrc()" 
@@ -9,7 +9,7 @@
     >
     <!-- For an unauthenticated user, profileusername is set, and authusername is null -->
     <button 
-        v-if="this.profileusername === this.authUserName"
+        v-if="this.profileusername === this.authUser.username"
         @click="isAddMode ? addGame() : deleteGame()"
         :class="actionButtonClass" 
         class="border-2 border-dark"
@@ -38,7 +38,7 @@
             },
 
             addGame() {
-                if (this.profileusername === this.authUserName) {
+                if (this.profileusername === this.authUser.username) {
                     axios.post(this.storeroute, {
                         'game_id': this.gameid,
                         'game_title': this.gamename,
@@ -66,7 +66,7 @@
             },
 
             deleteGame() {
-                if (this.profileusername === this.authUserName) {
+                if (this.profileusername === this.authUser.username) {
                     console.log(this.gameid);
                     axios.post(this.deleteroute, {
                         'game_id': this.gameid,

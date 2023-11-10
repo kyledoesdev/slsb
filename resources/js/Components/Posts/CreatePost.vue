@@ -58,7 +58,7 @@
         methods: {
             submitPost() {
                 axios.post(this.storeroute, {
-                    'user_id': this.authId,
+                    'user_id': this.authUser.id,
                     'title': this.title,
                     'body': this.$refs.toast.getBody(),
                     'is_featured': this.checked

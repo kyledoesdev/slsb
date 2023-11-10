@@ -33,6 +33,14 @@ export default {
             });
         },
 
+        flashDefaultSuccess() {
+            this.flash("Success", "Saved Successfully!");
+        },
+
+        flashDefaultError() {
+            this.flash("Error", "Sorry, we messed something up. Try again later!", "error");
+        },
+
         swal() {
             return Swal.mixin({
                 customClass: {

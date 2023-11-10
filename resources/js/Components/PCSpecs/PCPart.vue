@@ -1,6 +1,21 @@
 <template>
     <div v-if="this.iseditable">
-        <h5>{{ this.partname }}</h5> 
+        <div class="col-auto mb-1">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5>{{ this.partname }}</h5>
+                </div>
+                <div class="col-auto">
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-danger text-white"
+                        @click="deletePart"
+                    >
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+        </div> 
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -30,7 +45,7 @@
 <script>
     export default {
         name: 'PCPart',
-        props: ['partid', 'name', 'partname', 'imgpath', 'iseditable'],
+        props: ['partid', 'name', 'partname', 'imgpath', 'iseditable', 'profileusername', 'profileid'],
 
         data: function() {
             return {
@@ -42,6 +57,27 @@
         methods: {
             getEnteredName() {
                 return this.enteredPartName;
+            },
+
+            deletePart() {
+                if (this.profileusername === this.authUser.username) {
+                    axios.post('/pc_parts/delete', {
+                        'profile_id': this.profileid,
+                        'id': this.partid
+                    })
+                    .then(response => {
+                        const data = response.data;
+
+                        if (data && data.parts && data.message) {
+                            this.emitter.emit('partsupdated', data.parts);
+                            this.flash("Deleted!", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        this.flashDefaultError();
+                    });
+                }
             }
         },
 

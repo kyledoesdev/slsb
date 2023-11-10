@@ -39,6 +39,6 @@ class UserProfile extends Model {
     }
 
     public function canHaveMoreFavoriteGames() : bool {
-        return $this->favoriteGames->count() < 9;
+        return $this->favoriteGames->count() < 12;
     }
 }

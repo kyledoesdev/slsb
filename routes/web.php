@@ -40,6 +40,11 @@ Route::middleware(['auth'])->group(function() {
      * User Profiles
      */
     Route::get('/twitch/categories', [App\Http\Controllers\Twitch\TwitchSearchController::class, 'search'])->name('favorite_game.search');
+    Route::post('/pc_parts/store', [App\Http\Controllers\PCPartsController::class, 'store'])->name('pc_parts.store');
+    Route::post('/pc_parts/update', [App\Http\Controllers\PCPartsController::class, 'update'])->name('pc_parts.update');
+    Route::post('/pc_parts/delete', [App\Http\Controllers\PCPartsController::class, 'delete'])->name('pc_parts.delete');
+    Route::post('/{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
+    Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
 
     Route::middleware(['user_profile'])->group(function() {
         Route::get('/{id}/edit', [App\Http\Controllers\UserProfileController::class, 'edit'])->name('profile.edit');
@@ -47,19 +52,6 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/{id}/settings', [App\Http\Controllers\UserAccountSettingsController::class, 'index'])->name('user.settings');
         Route::post('/{id}/settings/unlink_twitch', [App\Http\Controllers\Twitch\TwitchAuthenticationController::class, 'disconnectFromTwitch'])->name('user.disconnect_from_twitch');
     });
-
-
-    /**
-     * Favorite Game Tab
-     */
-    Route::post('/{id}/favorite_game/store', [App\Http\Controllers\FavoriteGameController::class, 'store'])->name('favorite_game.store');
-    Route::post('/{id}/favorite_game/delete', [App\Http\Controllers\FavoriteGameController::class, 'delete'])->name('favorite_game.delete');
-    
-    /**
-     * PC Parts
-     */
-    Route::post('/pc_parts/store', [App\Http\Controllers\PCPartsController::class, 'store'])->name('pc_parts.store');
-    Route::post('/pc_parts/update', [App\Http\Controllers\PCPartsController::class, 'update'])->name('pc_parts.update');
 
     /**
      * Follows + Likes

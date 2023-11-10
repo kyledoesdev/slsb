@@ -76,7 +76,7 @@
         methods: {
             submitPost() {
                 axios.post(this.updateroute, {
-                    'user_id': this.authId,
+                    'user_id': this.authUser.id,
                     'post_id': this.post_id,
                     'title': this.title,
                     'body': this.$refs.toast.getBody(),
