@@ -79,7 +79,7 @@ class User extends Authenticatable {
     }
 
     public function generateNewAvatar($type, $seed) {
-        return "https://avatars.dicebear.com/api/{$type}/{$seed}.svg";
+        return "https://api.dicebear.com/7.x/{$type}/svg?seed={$seed}";
     }
 
     public function getUserTypeId() {
@@ -91,7 +91,7 @@ class User extends Authenticatable {
     }
 
     public function isAdmin() : bool {
-        return $this->getUserTypeId() == UserType::ADMIN || UserType::SUPER_ADMIN;
+        return in_array($this->user_type_id, [UserType::ADMIN, UserType::SUPER_ADMIN]);
     }
 
     public function isTwitchUser() : bool {

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\PCPart;
-use App\Models\UserProfilePCPart;
 use Illuminate\Support\Facades\Route;
 
 function get_route() : string {

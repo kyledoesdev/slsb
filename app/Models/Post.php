@@ -57,10 +57,6 @@ class Post extends Model {
         return $this->hasMany(Like::class);
     }
 
-    public function getId() {
-        return $this->id;
-    }
-
     public function getUserId() {
         return $this->user->id;
     }

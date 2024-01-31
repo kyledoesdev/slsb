@@ -30,10 +30,6 @@ class UserProfile extends Model {
         return $this->hasMany(UserProfilePCPart::class, 'profile_id', 'id');
     }
 
-    public function getId() {
-        return $this->id;
-    } 
-
     public function getBirthday() {
         return Carbon::parse($this->birthday)->format('m/d/Y');
     }
